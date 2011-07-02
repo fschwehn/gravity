@@ -12,7 +12,7 @@ class Universe extends GraphicsScene
 #		@addPlanet(new Planet(@center.add(v2( -81,  260)), 10, new Color(1, 1, 1, 1) ) );
 
 		# add ship
-		@ship = new SpaceShip(@center, 20)
+		@ship = new SpaceShip(@center, 20, '/images/kspaceduel.png')
 		@addItem(@ship)
 		
 	addPlanet: (planet) ->
@@ -39,8 +39,28 @@ class Universe extends GraphicsScene
 	
 	render: ->
 		@ctx.save()
-		t = @center.sub @ship.pos
-		@ctx.translate t.x, t.y
+		offset = @center.sub @ship.pos
+		@ctx.translate offset.x, offset.y
+		@renderBackground offset
 		super
 		@ctx.restore()
+		
+	renderBackground: (offset) ->
+		@ctx.fillStyle = "#fff"
+		gridSize = 100
+		rnd = new Random
+		
+		minGridX = Math.floor(-offset.x / gridSize)
+		minGridY = Math.floor(-offset.y / gridSize)
+		maxGridX = minGridX + Math.floor(@width / gridSize) + 1
+		maxGridY = minGridY + Math.floor(@height / gridSize) + 1
 	
+		for x in [minGridX..maxGridX]
+			for y in [minGridY..maxGridY]
+				rnd.seed (x + 1234) * (y - 463)
+				for i in [0..rnd.uInt()%7]
+					@ctx.fillRect(rnd.uInt() % gridSize + x * gridSize, rnd.uInt() % gridSize + y * gridSize, 1, 1)
+			
+		#@stop()
+		
+		
