@@ -1,4 +1,4 @@
 log = (x) ->
 	if console
-		console.log x
+		console.log if typeof( x.toString) == 'function' then x.toString() else x
 	x

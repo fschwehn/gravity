@@ -5,10 +5,9 @@ GraphicsScene = (function() {
     this.height = height;
     this.fmps = fmps != null ? fmps : 25;
     this.ctx = ctx;
+    this.frameDuration = 1 / this.fmps;
     this.center = new V2(this.width / 2, this.height / 2);
-    this.frameSize = 1000 / this.fmps;
     this.timer;
-    this.frameCount = 0;
     this.items = [];
   }
   GraphicsScene.prototype.start = function() {
@@ -17,7 +16,7 @@ GraphicsScene = (function() {
       self = this;
       this.timer = window.setInterval(function() {
         return self.move().render();
-      }, this.frameSize);
+      }, 1000 * this.frameDuration);
     }
     return this;
   };
@@ -33,7 +32,7 @@ GraphicsScene = (function() {
     _ref = this.items;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       item = _ref[_i];
-      item.move(this.frameSize);
+      item.move(this.frameDuration);
     }
     return this;
   };

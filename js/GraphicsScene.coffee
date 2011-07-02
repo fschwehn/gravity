@@ -1,10 +1,9 @@
 class GraphicsScene
 	constructor: (ctx, @width, @height, @fmps = 25) -> 
 		@ctx = ctx
+		@frameDuration = 1 / @fmps
 		@center = new V2(@width / 2, @height / 2)
-		@frameSize = 1000 / @fmps
 		@timer
-		@frameCount = 0
 		@items = []
 	
 	# ---------------------------
@@ -15,7 +14,7 @@ class GraphicsScene
 			self = @
 			@timer = window.setInterval(
 				-> self.move().render(),
-				@frameSize )
+				1000 * @frameDuration)
 		@
 		
 	stop: ->
@@ -26,7 +25,7 @@ class GraphicsScene
 	move: ->
 		@ctx.fillStyle = '#000'
 		@ctx.fillRect(0, 0, @width, @height)
-		item.move(@frameSize) for item in @items
+		item.move(@frameDuration) for item in @items
 		@
 		
 	render: ->

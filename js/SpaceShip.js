@@ -15,11 +15,12 @@ SpaceShip = (function() {
     if (image == null) {
       image = "/images/viper_mark_ii.png";
     }
-    this.mass = 0.25;
+    this.mass = 1;
     this.rotation = -0.5 * Math.PI;
-    this.speed = new V2();
-    this.mouseDown = false;
+    this.userAcceleration = new V2;
+    this.speed = new V2;
     this.alive = true;
+    this.mouseDown = false;
     this.shipImage = new Image();
     this.shipImage.src = image;
     this.explosionImage = new Image();
@@ -49,19 +50,17 @@ SpaceShip = (function() {
       return true;
     }, this));
   };
-  SpaceShip.prototype.onMouseDown = function(d) {
-    return this.onMouseDrag(d);
+  SpaceShip.prototype.render = function(ctx) {
+    var d;
+    ctx.save();
+    ctx.translate(this.pos.x, this.pos.y);
+    ctx.rotate(this.rotation - 0.5 * Math.PI);
+    d = this.radius * 2;
+    ctx.drawImage(this.image, -this.radius, -this.radius, d, d);
+    return ctx.restore();
   };
-  SpaceShip.prototype.onMouseDrag = function(d) {
-    if (!this.alive) {
-      return this;
-    }
-    this.rotation = d.angle();
-    return this.accelerate(d.norm().mul(3.0 / this.scene.fmps));
-  };
-  SpaceShip.prototype.onMouseUp = function(d) {};
   SpaceShip.prototype.accelerate = function(d) {
-    this.speed = this.speed.add(d);
+    this.speed = this.speed.add(d.mul(this.scene.frameDuration));
     return this;
   };
   SpaceShip.prototype.explode = function() {
@@ -71,18 +70,25 @@ SpaceShip = (function() {
     return this;
   };
   SpaceShip.prototype.move = function(t) {
-    this.pos = this.pos.add(this.speed.div(t));
+    if (!this.alive) {
+      return this;
+    }
+    this.speed = this.speed.add(this.userAcceleration);
+    this.pos = this.pos.add(this.speed.mul(t));
+    this.rotation = this.speed.angle();
     return this;
   };
-  SpaceShip.prototype.render = function(ctx) {
-    var d;
-    ctx.save();
-    ctx.translate(this.pos.x, this.pos.y);
-    ctx.rotate(this.rotation - 0.5 * Math.PI);
-    d = this.radius * 2;
-    ctx.drawImage(this.image, -this.radius, -this.radius, d, d);
-    ctx.restore();
-    return this;
+  SpaceShip.prototype.onMouseDown = function(d) {
+    return this.onMouseDrag(d);
+  };
+  SpaceShip.prototype.onMouseDrag = function(d) {
+    if (!this.alive) {
+      return this;
+    }
+    return this.userAcceleration = d.mul(this.scene.frameDuration / 2);
+  };
+  SpaceShip.prototype.onMouseUp = function(d) {
+    return this.userAcceleration = v2();
   };
   return SpaceShip;
 })();

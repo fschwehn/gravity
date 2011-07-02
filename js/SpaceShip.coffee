@@ -1,11 +1,14 @@
 class SpaceShip extends GraphicsItem
 	constructor: (@pos, @radius, image = "/images/viper_mark_ii.png") ->
-		@mass = 0.25
+		# physics ..................................
+		@mass = 1
 		@rotation = -0.5 * Math.PI
-		@speed = new V2()
-		@mouseDown = false
-		#@image.addEventListener('load', => @draw())
+		@userAcceleration = new V2
+		@speed = new V2
+		
+		# states ...................................
 		@alive = true
+		@mouseDown = false
 		
 		# images ...................................
 		@shipImage = new Image()
@@ -28,22 +31,17 @@ class SpaceShip extends GraphicsItem
 				when 'mousemove' then if @mouseDown then @onMouseDrag d
 				when 'mouseup' then @mouseDown = false; @onMouseUp d
 			true
-	
-	onMouseDown: (d) ->
-		@onMouseDrag d
-		
-		#log v.toString()
-	onMouseDrag: (d) ->
-		return @ if !@alive
-		@rotation = d.angle()
-		@accelerate d.norm().mul(3.0 / @scene.fmps)
-		#log v.toString()
-	onMouseUp: (d) ->
-		#log v.toString()
+
+	render: (ctx) ->
+		ctx.save()
+		ctx.translate(@pos.x, @pos.y)
+		ctx.rotate(@rotation - 0.5 * Math.PI)
+		d = @radius * 2;
+		ctx.drawImage(@image, -@radius, -@radius, d, d);#, dx, dy, dw, dh)
+		ctx.restore()
 	
 	accelerate: (d) ->
-		@speed = @speed.add(d)
-		#log @speed.toString()
+		@speed = @speed.add d.mul(@scene.frameDuration)
 		@
 	
 	explode: ->
@@ -53,19 +51,22 @@ class SpaceShip extends GraphicsItem
 		@
 	
 	move: (t) ->
-		@pos = @pos.add(@speed.div t)
+		return @ if !@alive
+		
+		@speed = @speed.add(@userAcceleration)
+		@pos = @pos.add(@speed.mul t)
+		@rotation = @speed.angle()
 		@
-
-	render: (ctx) ->
-		ctx.save()
-		ctx.translate(@pos.x, @pos.y)
-		ctx.rotate(@rotation - 0.5 * Math.PI)
-		d = @radius * 2;
-#		ctx.beginPath();
-#		ctx.arc(0, 0, @radius, -180, 180);
-#		ctx.closePath()
-#		ctx.fillStyle = new Color(1, 1, 1, 0.25).toCssString()
-#		ctx.fill()
-		ctx.drawImage(@image, -@radius, -@radius, d, d);#, dx, dy, dw, dh)
-		ctx.restore()
-		@
+		
+	onMouseDown: (d) ->
+		@onMouseDrag d
+		
+	onMouseDrag: (d) ->
+		return @ if !@alive
+		
+		@userAcceleration = d.mul(@scene.frameDuration / 2)
+		
+	onMouseUp: (d) ->
+		@userAcceleration = v2()
+		
+		
