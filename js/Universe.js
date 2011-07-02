@@ -18,6 +18,8 @@ Universe = (function() {
     this.addPlanet(new Planet(this.center.add(v2(-200, 0)), 40, new Color(1, 1, 1, 1)));
     this.addPlanet(new Planet(this.center.add(v2(200, 0)), 39, new Color(1, .5, .5, 1)));
     this.addPlanet(new Planet(this.center.add(v2(0, -200)), 40, new Color(1, 1, 1, 1)));
+    this.addPlanet(new Planet(this.center.add(v2(150, 200)), 40, new Color(1, 1, 1, 1)));
+    this.addPlanet(new Planet(this.center.add(v2(-81, 260)), 10, new Color(1, 1, 1, 1)));
     this.ship = new SpaceShip(this.center, 20, '/images/kspaceduel.png');
     this.addItem(this.ship);
   }

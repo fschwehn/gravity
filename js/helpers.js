@@ -1,7 +1,7 @@
 var log;
 log = function(x) {
   if (console) {
-    console.log(typeof x.toString === 'function' ? x.toString() : x);
+    console.log(x);
   }
   return x;
 };
