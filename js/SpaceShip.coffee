@@ -25,7 +25,7 @@ class SpaceShip extends GraphicsItem
 		# install mouse event listener
 		$(scene.ctx.canvas).bind 'mousedown mousemove mouseup', (e) => 
 			canvOfst = $(scene.ctx.canvas).offset()
-			d = (new V2 e.clientX - canvOfst.left, e.clientY - canvOfst.top).sub @pos
+			d = (new V2 e.clientX - canvOfst.left, e.clientY - canvOfst.top).sub @scene.center
 			switch e.type
 				when 'mousedown' then @mouseDown = true; @onMouseDown d
 				when 'mousemove' then if @mouseDown then @onMouseDrag d
@@ -37,7 +37,7 @@ class SpaceShip extends GraphicsItem
 		ctx.translate(@pos.x, @pos.y)
 		ctx.rotate(@rotation - 0.5 * Math.PI)
 		d = @radius * 2;
-		ctx.drawImage(@image, -@radius, -@radius, d, d);#, dx, dy, dw, dh)
+		ctx.drawImage(@image, -@radius, -@radius, d, d)
 		ctx.restore()
 	
 	accelerate: (d) ->

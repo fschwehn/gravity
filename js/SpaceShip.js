@@ -32,7 +32,7 @@ SpaceShip = (function() {
     return $(scene.ctx.canvas).bind('mousedown mousemove mouseup', __bind(function(e) {
       var canvOfst, d;
       canvOfst = $(scene.ctx.canvas).offset();
-      d = (new V2(e.clientX - canvOfst.left, e.clientY - canvOfst.top)).sub(this.pos);
+      d = (new V2(e.clientX - canvOfst.left, e.clientY - canvOfst.top)).sub(this.scene.center);
       switch (e.type) {
         case 'mousedown':
           this.mouseDown = true;
