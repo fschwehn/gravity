@@ -58,9 +58,7 @@ class Universe extends GraphicsScene
 		for x in [minGridX..maxGridX]
 			for y in [minGridY..maxGridY]
 				rnd.seed (x + 1234) * (y - 463)
-				for i in [0..rnd.uInt()%7]
-					@ctx.fillRect(rnd.uInt() % gridSize + x * gridSize, rnd.uInt() % gridSize + y * gridSize, 1, 1)
-			
-		#@stop()
-		
-		
+				iMax = rnd.uInt(7)
+				for i in [0..iMax]
+					size = rnd.floatRange(1, 2)
+					@ctx.fillRect(rnd.uFloat(gridSize) + x * gridSize, rnd.uFloat(gridSize) + y * gridSize, size, size)

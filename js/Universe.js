@@ -59,7 +59,7 @@ Universe = (function() {
     return this.ctx.restore();
   };
   Universe.prototype.renderBackground = function(offset) {
-    var gridSize, i, maxGridX, maxGridY, minGridX, minGridY, rnd, x, y, _results;
+    var gridSize, i, iMax, maxGridX, maxGridY, minGridX, minGridY, rnd, size, x, y, _results;
     this.ctx.fillStyle = "#fff";
     gridSize = 100;
     rnd = new Random;
@@ -74,11 +74,13 @@ Universe = (function() {
         _results2 = [];
         for (y = minGridY; minGridY <= maxGridY ? y <= maxGridY : y >= maxGridY; minGridY <= maxGridY ? y++ : y--) {
           rnd.seed((x + 1234) * (y - 463));
+          iMax = rnd.uInt(7);
           _results2.push((function() {
-            var _ref, _results3;
+            var _results3;
             _results3 = [];
-            for (i = 0, _ref = rnd.uInt() % 7; 0 <= _ref ? i <= _ref : i >= _ref; 0 <= _ref ? i++ : i--) {
-              _results3.push(this.ctx.fillRect(rnd.uInt() % gridSize + x * gridSize, rnd.uInt() % gridSize + y * gridSize, 1, 1));
+            for (i = 0; 0 <= iMax ? i <= iMax : i >= iMax; 0 <= iMax ? i++ : i--) {
+              size = rnd.floatRange(1, 2);
+              _results3.push(this.ctx.fillRect(rnd.uFloat(gridSize) + x * gridSize, rnd.uFloat(gridSize) + y * gridSize, size, size));
             }
             return _results3;
           }).call(this));

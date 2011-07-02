@@ -4,16 +4,32 @@ Random = (function() {
     if (value == null) {
       value = 0;
     }
-    this.ceiling = 1073741824;
+    this.ceiling = 0x8FFFFFFF;
     this.seed(value);
   }
   Random.prototype.seed = function(value) {
-    return this.value = parseInt(value);
+    return this.value = Math.abs(Math.floor(value));
   };
-  Random.prototype.uInt = function() {
+  Random.prototype.uInt = function(max) {
+    if (max == null) {
+      max = this.ceiling;
+    }
     this.value *= 1103515245;
     this.value += 12345;
-    return this.value %= this.ceiling;
+    this.value %= this.ceiling;
+    return this.value % max;
+  };
+  Random.prototype.intRange = function(min, max) {
+    return this.uInt(max - min) + min;
+  };
+  Random.prototype.uFloat = function(max) {
+    if (max == null) {
+      max = 1.0;
+    }
+    return (this.uInt() / this.ceiling) * max;
+  };
+  Random.prototype.floatRange = function(min, max) {
+    return this.uFloat(max - min) + min;
   };
   return Random;
 })();
