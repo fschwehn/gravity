@@ -1,0 +1,22 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+html {
+/*	background-color: #333;*/
+}
+
+body {
+	width: 600px;
+	margin: 0px auto;
+	background-color: #111;
+	color: #fff;
+	font-family: monospace;
+}
+
+#viewport {
+	background-color: #000;
+	width: 600px;
+	height: 600px;
+}
