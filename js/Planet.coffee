@@ -19,7 +19,7 @@ class Planet extends GraphicsItem
 				@radius * 1.125, @radius * 1.125, @radius
 			)
 			g.addColorStop(0, @color.toCssString());
-			g.addColorStop(1, new Color(0.25, 0.25, 0.25, @color.a * 0.25).toCssString());
+			g.addColorStop(1, new Color(0, 0, 0, @color.a).toCssString());
 
 			# create path
 			c.beginPath();

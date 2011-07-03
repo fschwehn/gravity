@@ -26,7 +26,7 @@ Planet = (function() {
       c.clearRect(0, 0, d, d);
       g = c.createRadialGradient(this.radius, this.radius, 0, this.radius * 1.125, this.radius * 1.125, this.radius);
       g.addColorStop(0, this.color.toCssString());
-      g.addColorStop(1, new Color(0.25, 0.25, 0.25, this.color.a * 0.25).toCssString());
+      g.addColorStop(1, new Color(0, 0, 0, this.color.a).toCssString());
       c.beginPath();
       c.arc(this.radius, this.radius, this.radius, -180, 180);
       c.closePath();

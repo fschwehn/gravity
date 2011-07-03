@@ -5,7 +5,7 @@ class GraphicsScene
 		@center = new V2(@width / 2, @height / 2)
 		@timer
 		@items = []
-	
+		
 	# ---------------------------
 	# animation stuff
 	# ---------------------------

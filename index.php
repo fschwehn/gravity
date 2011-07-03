@@ -13,6 +13,7 @@
 		<script src="/js/lib/jquery-1.6.1.min.js"></script>
 		<script src="/js/helpers.js"></script>
 		<script src="/js/xMath.js"></script>
+		<script src="/js/Random.js"></script>
 		<script src="/js/V2.js"></script>
 		<script src="/js/Color.js"></script>
 		<script src="/js/GraphicsItem.js"></script>
