@@ -7,6 +7,7 @@ canvas.width = width;
 canvas.height = height;
 resources = new Resources;
 universe = new Universe(canvas.getContext('2d'), width, height, 100 / 3);
+universe.populateRandomly(11);
 resources.addCompletedListener(function() {
   return universe.start();
 });

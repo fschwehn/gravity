@@ -15,14 +15,23 @@ Universe = (function() {
     }
     Universe.__super__.constructor.call(this, ctx, width, height, fmps);
     this.planets = [];
-    this.addPlanet(new Planet(this.center.add(v2(-200, 0)), 40, new Color(1, 1, 1, 1)));
-    this.addPlanet(new Planet(this.center.add(v2(200, 0)), 39, new Color(1, .5, .5, 1)));
-    this.addPlanet(new Planet(this.center.add(v2(0, -200)), 40, new Color(1, 1, 1, 1)));
-    this.addPlanet(new Planet(this.center.add(v2(150, 200)), 40, new Color(1, 1, 1, 1)));
-    this.addPlanet(new Planet(this.center.add(v2(-81, 260)), 10, new Color(1, 1, 1, 1)));
     this.ship = new SpaceShip(this.center, 20, '/images/kspaceduel.png');
-    this.addItem(this.ship);
   }
+  Universe.prototype.populateRandomly = function(numPlanets) {
+    var color, i, pos, posRad, posX, posY, radius, rnd;
+    rnd = new Random(Math.random() * 1231548);
+    for (i = 1; 1 <= numPlanets ? i <= numPlanets : i >= numPlanets; 1 <= numPlanets ? i++ : i--) {
+      posRad = rnd.floatRange(-Math.PI, Math.PI);
+      posX = Math.cos(posRad);
+      posY = Math.sin(posRad);
+      pos = v2(posX, posY).mul(rnd.floatRange(150, 500));
+      radius = rnd.floatRange(8, 60);
+      color = new Color(1, 1, 1, 1);
+      this.addPlanet(new Planet(this.center.add(pos), radius, color));
+    }
+    this.addItem(this.ship);
+    return this;
+  };
   Universe.prototype.addPlanet = function(planet) {
     this.planets.push(planet);
     return this.addItem(planet);

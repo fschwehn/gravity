@@ -3,18 +3,26 @@ class Universe extends GraphicsScene
 		super(ctx, width, height, fmps)
 		
 		@planets = []
-		
+		@ship = new SpaceShip(@center, 20, '/images/kspaceduel.png')
+	
+	populateRandomly: (numPlanets) ->
 		# add planets
-		@addPlanet(new Planet(@center.add(v2(-200, 0)), 40, new Color(1, 1, 1, 1) ) );
-		@addPlanet(new Planet(@center.add(v2( 200, 0)), 39, new Color(1, .5, .5, 1) ) );
-		@addPlanet(new Planet(@center.add(v2( 0, -200)), 40, new Color(1, 1, 1, 1) ) );
-		@addPlanet(new Planet(@center.add(v2( 150,  200)), 40, new Color(1, 1, 1, 1) ) );
-		@addPlanet(new Planet(@center.add(v2( -81,  260)), 10, new Color(1, 1, 1, 1) ) );
+		rnd = new Random (Math.random() * 1231548)
+		for i in [1..numPlanets]
+			posRad = rnd.floatRange(-Math.PI, Math.PI)
+			posX = Math.cos(posRad)
+			posY = Math.sin(posRad)
+			pos = v2(posX, posY).mul rnd.floatRange(150, 500)
+			radius = rnd.floatRange(8, 60)
+			color = new Color(1, 1, 1, 1)
+			
+			@addPlanet( new Planet(@center.add(pos), radius, color) );
 
 		# add ship
-		@ship = new SpaceShip(@center, 20, '/images/kspaceduel.png')
 		@addItem(@ship)
-		
+		@
+	
+
 	addPlanet: (planet) ->
 		@planets.push planet
 		@addItem(planet)
