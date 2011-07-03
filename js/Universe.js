@@ -20,7 +20,8 @@ Universe = (function() {
   Universe.prototype.populateRandomly = function(numPlanets) {
     var color, i, pos, posRad, posX, posY, radius, rnd;
     rnd = new Random(Math.random() * 1231548);
-    for (i = 1; 1 <= numPlanets ? i <= numPlanets : i >= numPlanets; 1 <= numPlanets ? i++ : i--) {
+    i = 0;
+    while (i++ < numPlanets) {
       posRad = rnd.floatRange(-Math.PI, Math.PI);
       posX = Math.cos(posRad);
       posY = Math.sin(posRad);

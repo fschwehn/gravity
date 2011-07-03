@@ -8,7 +8,8 @@ class Universe extends GraphicsScene
 	populateRandomly: (numPlanets) ->
 		# add planets
 		rnd = new Random (Math.random() * 1231548)
-		for i in [1..numPlanets]
+		i = 0
+		while i++ < numPlanets
 			posRad = rnd.floatRange(-Math.PI, Math.PI)
 			posX = Math.cos(posRad)
 			posY = Math.sin(posRad)
