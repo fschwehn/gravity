@@ -21,10 +21,8 @@ SpaceShip = (function() {
     this.speed = new V2;
     this.alive = true;
     this.mouseDown = false;
-    this.shipImage = new Image();
-    this.shipImage.src = image;
-    this.explosionImage = new Image();
-    this.explosionImage.src = "/images/explosion.png";
+    this.shipImage = resources.getImage(image);
+    this.explosionImage = resources.getImage("/images/explosion.png");
     this.image = this.shipImage;
   }
   SpaceShip.prototype.setScene = function(scene) {

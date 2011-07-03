@@ -8,11 +8,14 @@ canvas = $canvas[0]
 canvas.width = width
 canvas.height = height
 
+# init resources
+resources = new Resources
+
 # setup universe
-universe = new Universe(canvas.getContext('2d'), width, height, 33)
+universe = new Universe(canvas.getContext('2d'), width, height, 100 / 3)
 
 # go...
-universe.start()
+resources.addCompletedListener -> universe.start()
 
 $canvas.bind 'resize', (e) ->
 	alert('canvas was resized')

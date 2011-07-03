@@ -1,12 +1,15 @@
-var $canvas, canvas, height, universe, width;
+var $canvas, canvas, height, resources, universe, width;
 $canvas = $('#viewport');
 width = $canvas.width();
 height = $canvas.height();
 canvas = $canvas[0];
 canvas.width = width;
 canvas.height = height;
-universe = new Universe(canvas.getContext('2d'), width, height, 33);
-universe.start();
+resources = new Resources;
+universe = new Universe(canvas.getContext('2d'), width, height, 100 / 3);
+resources.addCompletedListener(function() {
+  return universe.start();
+});
 $canvas.bind('resize', function(e) {
   var h, w;
   alert('canvas was resized');

@@ -16,11 +16,12 @@
 		<script src="/js/Random.js"></script>
 		<script src="/js/V2.js"></script>
 		<script src="/js/Color.js"></script>
+		<script src="/js/Resources.js"></script>
 		<script src="/js/GraphicsItem.js"></script>
 		<script src="/js/GraphicsScene.js"></script>
 		<script src="/js/Planet.js"></script>
 		<script src="/js/SpaceShip.js"></script>
 		<script src="/js/Universe.js"></script>
-		<script src="/js/GravityRace.js"></script>
+		<script src="/js/main.js"></script>
     </body>
 </html>

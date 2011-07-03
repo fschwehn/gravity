@@ -11,11 +11,8 @@ class SpaceShip extends GraphicsItem
 		@mouseDown = false
 		
 		# images ...................................
-		@shipImage = new Image()
-		@shipImage.src = image
-		
-		@explosionImage = new Image()
-		@explosionImage.src = "/images/explosion.png"
+		@shipImage = resources.getImage image
+		@explosionImage = resources.getImage "/images/explosion.png"
 		
 		@image = @shipImage
 		
