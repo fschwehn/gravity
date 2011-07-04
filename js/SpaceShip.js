@@ -18,6 +18,8 @@ SpaceShip = (function() {
     this.mass = 1;
     this.rotation = -0.5 * Math.PI;
     this.userAcceleration = new V2;
+    this.maxUserAcceleration = 200;
+    this.maxMouseDistance = 200;
     this.speed = new V2;
     this.alive = true;
     this.mouseDown = false;
@@ -71,7 +73,7 @@ SpaceShip = (function() {
     if (!this.alive) {
       return this;
     }
-    this.speed = this.speed.add(this.userAcceleration);
+    this.speed = this.speed.add(this.userAcceleration.mul(t));
     this.pos = this.pos.add(this.speed.mul(t));
     this.rotation = this.speed.angle();
     return this;
@@ -80,10 +82,15 @@ SpaceShip = (function() {
     return this.onMouseDrag(d);
   };
   SpaceShip.prototype.onMouseDrag = function(d) {
+    var len;
     if (!this.alive) {
       return this;
     }
-    return this.userAcceleration = d.mul(this.scene.frameDuration / 2);
+    this.userAcceleration = d.div(this.maxMouseDistance).mul(this.maxUserAcceleration);
+    len = this.userAcceleration.abs();
+    if (len > this.maxUserAcceleration) {
+      return this.userAcceleration = this.userAcceleration.mul(this.maxUserAcceleration / len);
+    }
   };
   SpaceShip.prototype.onMouseUp = function(d) {
     return this.userAcceleration = v2();

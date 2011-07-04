@@ -4,6 +4,8 @@ class SpaceShip extends GraphicsItem
 		@mass = 1
 		@rotation = -0.5 * Math.PI
 		@userAcceleration = new V2
+		@maxUserAcceleration = 200
+		@maxMouseDistance = 200
 		@speed = new V2
 		
 		# states ...................................
@@ -33,8 +35,14 @@ class SpaceShip extends GraphicsItem
 		ctx.save()
 		ctx.translate(@pos.x, @pos.y)
 		ctx.rotate(@rotation - 0.5 * Math.PI)
+		
+		# body
 		d = @radius * 2;
 		ctx.drawImage(@image, -@radius, -@radius, d, d)
+		
+		# acceleration
+		
+		
 		ctx.restore()
 	
 	accelerate: (d) ->
@@ -50,7 +58,7 @@ class SpaceShip extends GraphicsItem
 	move: (t) ->
 		return @ if !@alive
 		
-		@speed = @speed.add(@userAcceleration)
+		@speed = @speed.add(@userAcceleration.mul(t))
 		@pos = @pos.add(@speed.mul t)
 		@rotation = @speed.angle()
 		@
@@ -61,7 +69,12 @@ class SpaceShip extends GraphicsItem
 	onMouseDrag: (d) ->
 		return @ if !@alive
 		
-		@userAcceleration = d.mul(@scene.frameDuration / 2)
+		@userAcceleration = d.div(@maxMouseDistance).mul(@maxUserAcceleration)
+		
+		# limit to max user acceleration
+		len = @userAcceleration.abs()
+		if len > @maxUserAcceleration
+			@userAcceleration = @userAcceleration.mul( @maxUserAcceleration / len)
 		
 	onMouseUp: (d) ->
 		@userAcceleration = v2()

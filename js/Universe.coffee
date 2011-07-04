@@ -32,7 +32,7 @@ class Universe extends GraphicsScene
 			accel = v2()
 			for p in @planets
 				d = p.pos.sub @ship.pos
-				dist = d.length()
+				dist = d.abs()
 				if dist < p.radius #+ @ship.radius
 					@ship.explode()
 					accel = v2()

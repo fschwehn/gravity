@@ -5,14 +5,14 @@ class V2
 	sub: (v) -> new V2(@x - v.x, @y - v.y )
 	mul: (s) -> new V2(@x * s, @y * s)
 	div: (s) -> new V2(@x / s, @y / s)
-	length: -> Math.sqrt(Math.sqr(@x) + Math.sqr(@y))
-	distance: (v) -> v.sub(@).length()
+	abs: -> Math.sqrt(Math.sqr(@x) + Math.sqr(@y))
+	distance: (v) -> v.sub(@).abs()
 	
 	norm: ->
-		len = @length
-		if len > 0
-			return @div(len)
-		@
+		a = @abs
+		if a > 0
+			return @div(a)
+		v2(@x, @y)
 	
 	angle: ->
 		d = Math.atan(@y / @x)

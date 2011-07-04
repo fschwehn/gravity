@@ -16,19 +16,19 @@ V2 = (function() {
   V2.prototype.div = function(s) {
     return new V2(this.x / s, this.y / s);
   };
-  V2.prototype.length = function() {
+  V2.prototype.abs = function() {
     return Math.sqrt(Math.sqr(this.x) + Math.sqr(this.y));
   };
   V2.prototype.distance = function(v) {
-    return v.sub(this).length();
+    return v.sub(this).abs();
   };
   V2.prototype.norm = function() {
-    var len;
-    len = this.length;
-    if (len > 0) {
-      return this.div(len);
+    var a;
+    a = this.abs;
+    if (a > 0) {
+      return this.div(a);
     }
-    return this;
+    return v2(this.x, this.y);
   };
   V2.prototype.angle = function() {
     var d;

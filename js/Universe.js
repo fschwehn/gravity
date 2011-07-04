@@ -44,7 +44,7 @@ Universe = (function() {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         p = _ref[_i];
         d = p.pos.sub(this.ship.pos);
-        dist = d.length();
+        dist = d.abs();
         if (dist < p.radius) {
           this.ship.explode();
           accel = v2();
