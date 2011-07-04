@@ -1,5 +1,9 @@
 class SpaceShip extends GraphicsItem
 	constructor: (@pos, @radius, image = "/images/viper_mark_ii.png") ->
+		@config = {
+			rotateWithSpeedVector: true
+		}
+		
 		# physics ..................................
 		@mass = 1
 		@rotation = -0.5 * Math.PI
@@ -34,14 +38,34 @@ class SpaceShip extends GraphicsItem
 	render: (ctx) ->
 		ctx.save()
 		ctx.translate(@pos.x, @pos.y)
-		ctx.rotate(@rotation - 0.5 * Math.PI)
-		
-		# body
-		d = @radius * 2;
-		ctx.drawImage(@image, -@radius, -@radius, d, d)
 		
 		# acceleration
+		uaLen = @userAcceleration.abs()
+		if uaLen > 0
+			uaLen = uaLen / @maxUserAcceleration * 25
+			ctx.save()
+			ctx.rotate( @userAcceleration.angle() + 0.5 * Math.PI )
+			ctx.translate 0, @radius
+			ctx.strokeStyle = 'rgba(192, 192, 255, 0.25)'
+			ctx.lineWidth = 2
+			ctx.lineCap = 'round'
+			ctx.beginPath()
+			
+			i = (@scene.frameCount % 8) * 0.25
+			while i <= uaLen
+				x = 4 + i * 0.75
+				y = i * 4
+				ctx.moveTo -x, y
+				ctx.lineTo  x, y
+				i += 2
+			
+			ctx.stroke()
+			ctx.restore()
 		
+		# body
+		ctx.rotate(@rotation - 0.5 * Math.PI)
+		d = @radius * 2;
+		ctx.drawImage(@image, -@radius, -@radius, d, d)
 		
 		ctx.restore()
 	
@@ -60,7 +84,13 @@ class SpaceShip extends GraphicsItem
 		
 		@speed = @speed.add(@userAcceleration.mul(t))
 		@pos = @pos.add(@speed.mul t)
-		@rotation = @speed.angle()
+		
+		# set rotation
+		if @config.rotateWithSpeedVector
+			@rotation = @speed.angle()
+		else
+			if @userAcceleration.abs() > 0
+				@rotation = @userAcceleration.angle()
 		@
 		
 	onMouseDown: (d) ->

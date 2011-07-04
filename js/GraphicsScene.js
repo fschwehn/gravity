@@ -9,6 +9,7 @@ GraphicsScene = (function() {
     this.center = new V2(this.width / 2, this.height / 2);
     this.timer;
     this.items = [];
+    this.frameCount = 0;
   }
   GraphicsScene.prototype.start = function() {
     var self;
@@ -43,6 +44,7 @@ GraphicsScene = (function() {
       item = _ref[_i];
       item.render(this.ctx);
     }
+    this.frameCount++;
     return this;
   };
   GraphicsScene.prototype.addItem = function(item) {

@@ -15,6 +15,9 @@ SpaceShip = (function() {
     if (image == null) {
       image = "/images/viper_mark_ii.png";
     }
+    this.config = {
+      rotateWithSpeedVector: true
+    };
     this.mass = 1;
     this.rotation = -0.5 * Math.PI;
     this.userAcceleration = new V2;
@@ -51,9 +54,30 @@ SpaceShip = (function() {
     }, this));
   };
   SpaceShip.prototype.render = function(ctx) {
-    var d;
+    var d, i, uaLen, x, y;
     ctx.save();
     ctx.translate(this.pos.x, this.pos.y);
+    uaLen = this.userAcceleration.abs();
+    if (uaLen > 0) {
+      uaLen = uaLen / this.maxUserAcceleration * 25;
+      ctx.save();
+      ctx.rotate(this.userAcceleration.angle() + 0.5 * Math.PI);
+      ctx.translate(0, this.radius);
+      ctx.strokeStyle = 'rgba(192, 192, 255, 0.25)';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      i = (this.scene.frameCount % 8) * 0.25;
+      while (i <= uaLen) {
+        x = 4 + i * 0.75;
+        y = i * 4;
+        ctx.moveTo(-x, y);
+        ctx.lineTo(x, y);
+        i += 2;
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
     ctx.rotate(this.rotation - 0.5 * Math.PI);
     d = this.radius * 2;
     ctx.drawImage(this.image, -this.radius, -this.radius, d, d);
@@ -75,7 +99,13 @@ SpaceShip = (function() {
     }
     this.speed = this.speed.add(this.userAcceleration.mul(t));
     this.pos = this.pos.add(this.speed.mul(t));
-    this.rotation = this.speed.angle();
+    if (this.config.rotateWithSpeedVector) {
+      this.rotation = this.speed.angle();
+    } else {
+      if (this.userAcceleration.abs() > 0) {
+        this.rotation = this.userAcceleration.angle();
+      }
+    }
     return this;
   };
   SpaceShip.prototype.onMouseDown = function(d) {
