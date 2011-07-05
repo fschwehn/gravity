@@ -3,7 +3,7 @@ class Universe extends GraphicsScene
 		super(ctx, width, height, fmps)
 		
 		@planets = []
-		@ship = new SpaceShip(@center, 20, '/images/kspaceduel.png')
+		@ship = new SpaceShip(@center, 20, 'kspaceduel.png')
 	
 	populateRandomly: (numPlanets) ->
 		# add planets

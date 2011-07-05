@@ -15,7 +15,7 @@ Universe = (function() {
     }
     Universe.__super__.constructor.call(this, ctx, width, height, fmps);
     this.planets = [];
-    this.ship = new SpaceShip(this.center, 20, '/images/kspaceduel.png');
+    this.ship = new SpaceShip(this.center, 20, 'kspaceduel.png');
   }
   Universe.prototype.populateRandomly = function(numPlanets) {
     var color, i, pos, posRad, posX, posY, radius, rnd;

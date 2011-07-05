@@ -13,7 +13,7 @@ SpaceShip = (function() {
     this.pos = pos;
     this.radius = radius;
     if (image == null) {
-      image = "/images/viper_mark_ii.png";
+      image = "viper_mark_ii.png";
     }
     this.config = {
       rotateWithSpeedVector: true
@@ -27,8 +27,9 @@ SpaceShip = (function() {
     this.alive = true;
     this.mouseDown = false;
     this.shipImage = resources.getImage(image);
-    this.explosionImage = resources.getImage("/images/explosion.png");
+    this.explosionImage = resources.getImage("explosion.png");
     this.image = this.shipImage;
+    this.foo = resources.getAudio('explosion');
   }
   SpaceShip.prototype.setScene = function(scene) {
     SpaceShip.__super__.setScene.call(this, scene);
@@ -88,6 +89,7 @@ SpaceShip = (function() {
     return this;
   };
   SpaceShip.prototype.explode = function() {
+    this.foo.play();
     this.speed = v2();
     this.alive = false;
     this.image = this.explosionImage;

@@ -1,5 +1,5 @@
 class SpaceShip extends GraphicsItem
-	constructor: (@pos, @radius, image = "/images/viper_mark_ii.png") ->
+	constructor: (@pos, @radius, image = "viper_mark_ii.png") ->
 		@config = {
 			rotateWithSpeedVector: true
 		}
@@ -18,9 +18,11 @@ class SpaceShip extends GraphicsItem
 		
 		# images ...................................
 		@shipImage = resources.getImage image
-		@explosionImage = resources.getImage "/images/explosion.png"
+		@explosionImage = resources.getImage "explosion.png"
 		
 		@image = @shipImage
+		
+		@foo = resources.getAudio 'explosion'
 		
 	setScene: (scene) ->
 		super scene
@@ -74,6 +76,7 @@ class SpaceShip extends GraphicsItem
 		@
 	
 	explode: ->
+		@foo.play()
 		@speed = v2()
 		@alive = false
 		@image = @explosionImage
