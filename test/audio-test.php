@@ -29,7 +29,8 @@
 				<tr>
 					<th>Format</th>
 					<th>Tag</th>
-					<th>canplay</th>
+					<th>canplay event</th>
+					<th>canPlayType</th>
 					<th>Audio-Object</th>
 				</tr>
 			</thead>
@@ -40,7 +41,7 @@
 			foreach($formats as $format):
 				$id = 'tag_' . $format;
 				$src = '/audio/' . $format . '.' . $format;
-				$type = 'audio/' . $format;
+				$type = 'audio/' . ($format == 'mp3' ? 'mpeg' : $format);
 				?>
 				<tr>
 					<td>
@@ -51,6 +52,9 @@
 					</td>
 					<td>
 						<p id="<?php echo $id ?>_canplay">false</p>
+					</td>
+					<td>
+						<p class="canPlayType" data-format="<?php echo $type ?>">test</p>
 					</td>
 					<td>
 						<button data-src="<?php echo $src ?>">play</button>
@@ -84,6 +88,14 @@
 					.bind('error', function(){
 						alert('error')
 					})
+			})
+			
+			// canplay format
+			$('.canPlayType').each(function(){
+				var $this = $(this);
+				var format = $this.data('format');
+				var audio = new Audio();
+				$this.text(audio.canPlayType(format));
 			})
 		</script>
     </body>
