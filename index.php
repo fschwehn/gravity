@@ -7,7 +7,10 @@
     </head>
     <body>
 <!--		<h1>GravityRace</h1>-->
-		
+		<div id="error">
+			<h3>An Error occurred:</h3>
+			<p class="message"></p>
+		</div>
 		<canvas id="viewport">your browser ain't support no canvas.</canvas>
 		
 		<script src="/js/lib/jquery-1.6.1.min.js"></script>
