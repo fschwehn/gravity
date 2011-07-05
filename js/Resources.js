@@ -6,11 +6,11 @@ Resources = (function() {
     this.audioHash = {};
     this.incomplete = 0;
     this.completedListeners = [];
-    this.audioTypeInfo = this.createAudioTypeInfo();
+    this.audioTypeInfos = this.createAudioTypeInfos();
   }
-  Resources.prototype.createAudioTypeInfo = function() {
-    var audio, info, typeInfos, _i, _len;
-    typeInfos = [
+  Resources.prototype.createAudioTypeInfos = function() {
+    var audio, i, info, infos, _ref;
+    infos = [
       {
         type: 'audio/ogg',
         extension: 'ogg'
@@ -23,43 +23,64 @@ Resources = (function() {
       }
     ];
     audio = new Audio();
-    for (_i = 0, _len = typeInfos.length; _i < _len; _i++) {
-      info = typeInfos[_i];
-      if (audio.canPlayType(info.type)) {
-        return info;
+    for (i = _ref = infos.length - 1; _ref <= 0 ? i <= 0 : i >= 0; _ref <= 0 ? i++ : i--) {
+      info = infos[i];
+      if (!audio.canPlayType(info.type)) {
+        infos.splice(i, 1);
       }
     }
-    alert('Audio playback is supported by your browser!');
-    return null;
+    if (infos.length === 0) {
+      throw 'Audio playback is supported by your browser!';
+    }
+    return infos;
   };
   Resources.prototype.addCompletedListener = function(callback) {
     return this.completedListeners.push(callback);
   };
-  Resources.prototype.getImage = function(subPath) {
+  Resources.prototype.loadImage = function(fileName, callback) {
     var img;
-    img = this.imageHash[subPath];
+    img = this.imageHash[fileName];
     if (!img) {
-      this.imageHash[subPath] = img = new Image;
+      this.imageHash[fileName] = img = new Image;
+      ++this.incomplete;
       $(img).bind('load', __bind(function() {
+        callback(img);
         return this.onLoad();
       }, this));
-      img.src = '/images/' + subPath;
-      ++this.incomplete;
+      $(img).bind('error', __bind(function() {
+        return error("The resource " + fileName + " could not be found!");
+      }, this));
+      img.src = '/images/' + fileName;
     }
-    return img;
+    return this;
   };
-  Resources.prototype.getAudio = function(fileName) {
+  Resources.prototype.loadAudio = function(fileName, callback) {
     var audio;
     audio = this.audioHash[fileName];
-    if (!audio) {
-      this.audioHash[fileName] = audio = new Audio();
-      audio.src = "/audio/" + fileName + "." + this.audioTypeInfo.extension;
-      $(audio).bind('canplay', __bind(function() {
-        return this.onLoad();
-      }, this));
-      ++this.incomplete;
+    if (audio) {
+      return callback(audio);
     }
-    return audio;
+    ++this.incomplete;
+    return this.tryLoadAudio(fileName, 0, callback);
+  };
+  Resources.prototype.tryLoadAudio = function(fileName, typeIndex, callback) {
+    var audio, info;
+    if (typeIndex >= this.audioTypeInfos.length) {
+      return error("The resource " + fileName + " could not be found!");
+    }
+    audio = new Audio();
+    this.audioHash[fileName] = audio;
+    $(audio).bind('canplay', __bind(function() {
+      $(audio).unbind('error');
+      callback(audio);
+      return this.onLoad();
+    }, this));
+    $(audio).bind('error', __bind(function() {
+      return this.tryLoadAudio(fileName, ++typeIndex, callback);
+    }, this));
+    info = this.audioTypeInfos[typeIndex];
+    audio.src = "/audio/" + fileName + "." + info.extension;
+    return this;
   };
   Resources.prototype.onLoad = function() {
     var callback, _i, _len, _ref, _results;

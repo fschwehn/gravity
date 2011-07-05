@@ -1,3 +1,11 @@
+error = (e) ->
+	log e
+	text
+	switch typeof e
+		when 'string' then text = e
+		when 'object' then text = e.toString()
+	$('#error').append('<p class="message">' + text + '</p>').show()
+
 try
 	# setup canvas
 	$canvas = $('#viewport')
@@ -31,9 +39,5 @@ try
 		universe.height = h
 		universe.center.x = w / 2
 		universe.center.y = h / 2
-catch msg
-	$('#error')
-		.find('.message')
-			.text(msg)
-		.end()
-	.show()
+catch e
+	error e

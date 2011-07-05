@@ -1,4 +1,17 @@
-var $canvas, canvas, height, resources, universe, width;
+var $canvas, canvas, error, height, resources, universe, width;
+error = function(e) {
+  var text;
+  log(e);
+  text;
+  switch (typeof e) {
+    case 'string':
+      text = e;
+      break;
+    case 'object':
+      text = e.toString();
+  }
+  return $('#error').append('<p class="message">' + text + '</p>').show();
+};
 try {
   $canvas = $('#viewport');
   width = $canvas.width();
@@ -24,6 +37,6 @@ try {
     universe.center.x = w / 2;
     return universe.center.y = h / 2;
   });
-} catch (msg) {
-  $('#error').find('.message').text(msg).end().show();
+} catch (e) {
+  error(e);
 }

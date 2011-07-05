@@ -26,10 +26,15 @@ SpaceShip = (function() {
     this.speed = new V2;
     this.alive = true;
     this.mouseDown = false;
-    this.shipImage = resources.getImage(image);
-    this.explosionImage = resources.getImage("explosion.png");
-    this.image = this.shipImage;
-    this.foo = resources.getAudio('explosion');
+    resources.loadImage(image, __bind(function(img) {
+      return this.shipImage = img;
+    }, this));
+    resources.loadImage("explosion.png", __bind(function(img) {
+      return this.explosionImage = img;
+    }, this));
+    resources.loadAudio('explosion', __bind(function(audio) {
+      return this.foo = audio;
+    }, this));
   }
   SpaceShip.prototype.setScene = function(scene) {
     SpaceShip.__super__.setScene.call(this, scene);
@@ -81,7 +86,7 @@ SpaceShip = (function() {
     }
     ctx.rotate(this.rotation - 0.5 * Math.PI);
     d = this.radius * 2;
-    ctx.drawImage(this.image, -this.radius, -this.radius, d, d);
+    ctx.drawImage(this.shipImage, -this.radius, -this.radius, d, d);
     return ctx.restore();
   };
   SpaceShip.prototype.accelerate = function(d) {
@@ -92,7 +97,8 @@ SpaceShip = (function() {
     this.foo.play();
     this.speed = v2();
     this.alive = false;
-    this.image = this.explosionImage;
+    this.shipImage = this.explosionImage;
+    this.scene.stop();
     return this;
   };
   SpaceShip.prototype.move = function(t) {

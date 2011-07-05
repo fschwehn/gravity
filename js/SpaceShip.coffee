@@ -16,13 +16,10 @@ class SpaceShip extends GraphicsItem
 		@alive = true
 		@mouseDown = false
 		
-		# images ...................................
-		@shipImage = resources.getImage image
-		@explosionImage = resources.getImage "explosion.png"
-		
-		@image = @shipImage
-		
-		@foo = resources.getAudio 'explosion'
+		# load resources ...........................
+		resources.loadImage image, (img) => @shipImage = img
+		resources.loadImage "explosion.png", (img) => @explosionImage = img
+		resources.loadAudio 'explosion', (audio) => @foo = audio
 		
 	setScene: (scene) ->
 		super scene
@@ -67,7 +64,7 @@ class SpaceShip extends GraphicsItem
 		# body
 		ctx.rotate(@rotation - 0.5 * Math.PI)
 		d = @radius * 2;
-		ctx.drawImage(@image, -@radius, -@radius, d, d)
+		ctx.drawImage(@shipImage, -@radius, -@radius, d, d)
 		
 		ctx.restore()
 	
@@ -79,7 +76,8 @@ class SpaceShip extends GraphicsItem
 		@foo.play()
 		@speed = v2()
 		@alive = false
-		@image = @explosionImage
+		@shipImage = @explosionImage
+		@scene.stop()
 		@
 	
 	move: (t) ->
