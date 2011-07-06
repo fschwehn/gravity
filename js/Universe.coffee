@@ -32,6 +32,8 @@ class Universe extends GraphicsScene
 		@addItem(planet)
 		
 	move: ->
+		Dot.oscillate()
+		
 		if @ship.alive
 			accel = v2()
 			for p in @planets

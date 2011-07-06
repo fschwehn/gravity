@@ -43,6 +43,7 @@ Universe = (function() {
   };
   Universe.prototype.move = function() {
     var accel, d, dir, dist, g, p, _i, _len, _ref;
+    Dot.oscillate();
     if (this.ship.alive) {
       accel = v2();
       _ref = this.planets;

@@ -1,45 +1,57 @@
 class Dot extends GraphicsItem
-	radius: 5
+	@radius: 15
+	@color1: new Color(0, 0, 1, 1)
+	@color2: new Color(0.5, 0.5, 1, 0.125)
+	@phs: 0
+	@oscillRange: 1.5
+	@rx: 0
+	@ry: 0
+	
+	@oscillate: ->
+		Dot.phs += 0.3
+		Dot.phs -= 4 if Dot.phs > 3
+		d = Dot.phs
+		d = 2 - d if d > 1
+		Dot.rx = Dot.radius + d
+		Dot.ry = Dot.radius - d
+		
 	
 	constructor: (pos, order = 0) ->
 		@pos = pos
-		@order = order
 		
 	render: (ctx) ->
 		if !Dot.image
-			d = Dot.radius * 2
+			r = Dot.radius
+			d = r * 2
 			
 			# create offline render contex
 			canvas = document.createElement 'canvas'
 			canvas.width = d
 			canvas.height = d
 			c = canvas.getContext('2d')
-			#c.clearRect(0, 0, d, d)
 			
 			# create gradient
 			g = c.createRadialGradient(
-				@radius, @radius, 0, 
-				@radius * 1.125, @radius * 1.125, @radius
+				r, r, 0, 
+				r * 1.125, r * 1.125, r
 			)
-			g.addColorStop(0, @color.toCssString());
-			g.addColorStop(1, new Color(0, 0, 0, @color.a).toCssString());
+			g.addColorStop(0, Dot.color1.toCssString());
+			g.addColorStop(1, Dot.color2.toCssString());
 
 			# create path
 			c.beginPath();
-			c.arc(@radius, @radius, @radius, -180, 180);
-			c.closePath()
+			c.arc(r, r, r, -180, 180);
 
 			# draw
 			c.fillStyle = g;
 			c.fill();
 			
 			# get image
-			@image = c.getImageData(0, 0, d, d)
-			
-			@image = new Image()
-			@image.src = canvas.toDataURL("image/png")
+			Dot.image = new Image()
+			Dot.image.src = canvas.toDataURL("image/png")
 			
 			# cleanup
 			delete canvas
-		ctx.drawImage(@image, @pos.x - @radius, @pos.y - @radius)
+		
+		ctx.drawImage(Dot.image, @pos.x - Dot.rx, @pos.y - Dot.ry, Dot.rx * 2, Dot.ry * 2)
 		@
