@@ -1,6 +1,7 @@
 class V2
 	constructor: (@x = 0, @y = 0) ->
 	
+	set: (x, y) -> @x = x; @y = y; @
 	add: (v) -> new V2(@x + v.x, @y + v.y )
 	sub: (v) -> new V2(@x - v.x, @y - v.y )
 	mul: (s) -> new V2(@x * s, @y * s)

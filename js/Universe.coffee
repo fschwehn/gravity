@@ -41,6 +41,7 @@ class Universe extends GraphicsScene
 		Dot.oscillate()
 		
 		if @ship.alive
+			# iterate over planets
 			accel = v2()
 			for p in @planets
 				d = p.pos.sub @ship.pos
@@ -53,9 +54,18 @@ class Universe extends GraphicsScene
 				dir = d.div dist
 				accel = accel.add (dir.mul g)
 			@ship.accelerate accel
-			#for p in @planets
-			#	p.pos = p.pos.sub accel
+			
+			# iterate over dots
+			for dot in @dots
+				d = dot.pos.sub @ship.pos
+				if d.abs() < Dot.radius + @ship.radius
+					@hitDot dot
+					break
 		super
+	
+	hitDot: (dot) ->
+		@dots.splice @dots.indexOf(dot), 1
+		@removeItem dot
 	
 	render: ->
 		@ctx.save()

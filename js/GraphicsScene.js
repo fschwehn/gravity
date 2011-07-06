@@ -56,5 +56,13 @@ GraphicsScene = (function() {
     item.setScene(this);
     return this;
   };
+  GraphicsScene.prototype.removeItem = function(item) {
+    var i;
+    i = this.items.indexOf(item);
+    if (i > -1 && i < this.items.length) {
+      this.items.splice(i, 1);
+    }
+    return this;
+  };
   return GraphicsScene;
 })();

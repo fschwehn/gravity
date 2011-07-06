@@ -4,6 +4,11 @@ V2 = (function() {
     this.x = x != null ? x : 0;
     this.y = y != null ? y : 0;
   }
+  V2.prototype.set = function(x, y) {
+    this.x = x;
+    this.y = y;
+    return this;
+  };
   V2.prototype.add = function(v) {
     return new V2(this.x + v.x, this.y + v.y);
   };

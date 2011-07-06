@@ -48,7 +48,7 @@ Universe = (function() {
     return this.addItem(dot);
   };
   Universe.prototype.move = function() {
-    var accel, d, dir, dist, g, p, _i, _len, _ref;
+    var accel, d, dir, dist, dot, g, p, _i, _j, _len, _len2, _ref, _ref2;
     Dot.oscillate();
     if (this.ship.alive) {
       accel = v2();
@@ -67,8 +67,21 @@ Universe = (function() {
         accel = accel.add(dir.mul(g));
       }
       this.ship.accelerate(accel);
+      _ref2 = this.dots;
+      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+        dot = _ref2[_j];
+        d = dot.pos.sub(this.ship.pos);
+        if (d.abs() < Dot.radius + this.ship.radius) {
+          this.hitDot(dot);
+          break;
+        }
+      }
     }
     return Universe.__super__.move.apply(this, arguments);
+  };
+  Universe.prototype.hitDot = function(dot) {
+    this.dots.splice(this.dots.indexOf(dot), 1);
+    return this.removeItem(dot);
   };
   Universe.prototype.render = function() {
     var offset;

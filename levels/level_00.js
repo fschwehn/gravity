@@ -20,5 +20,6 @@
 	u.addDot(new Dot(v2( 0,-p)))
 	
 	u.ship.pos = v2(100, 100);
+	u.ship.speed.set(-40, -40)
 	
 })(Level.current, Level.current.universe);

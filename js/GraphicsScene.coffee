@@ -45,4 +45,9 @@ class GraphicsScene
 		@items.push(item)
 		item.setScene(@)
 		@
+
+	removeItem: (item) ->
+		i = @items.indexOf(item)
+		@items.splice i, 1 if i > -1 and i < @items.length
+		@
 		
