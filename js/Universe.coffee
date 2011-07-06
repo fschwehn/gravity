@@ -7,6 +7,8 @@ class Universe extends GraphicsScene
 	clear: ->
 		super
 		@planets = []
+		@dots = []
+		@bgScaleSpeed = 0.75
 		@
 	
 	populateRandomly: (numPlanets) ->
@@ -30,6 +32,10 @@ class Universe extends GraphicsScene
 	addPlanet: (planet) ->
 		@planets.push planet
 		@addItem(planet)
+
+	addDot: (dot) ->
+		@dots.push dot
+		@addItem(dot)
 		
 	move: ->
 		Dot.oscillate()
@@ -60,12 +66,17 @@ class Universe extends GraphicsScene
 		@ctx.restore()
 		
 	renderBackground: (offset) ->
-		@ctx.fillStyle = "#fff"
+		@ctx.save()
+		
+		d = offset.mul (@bgScaleSpeed-1)
+		@ctx.translate d.x, d.y
+	
+		@ctx.fillStyle = "#ccc"
 		gridSize = 100
 		rnd = new Random
 		
-		minGridX = Math.floor(-offset.x / gridSize)
-		minGridY = Math.floor(-offset.y / gridSize)
+		minGridX = Math.floor(-offset.x * @bgScaleSpeed / gridSize)
+		minGridY = Math.floor(-offset.y * @bgScaleSpeed / gridSize)
 		maxGridX = minGridX + Math.floor(@width / gridSize) + 1
 		maxGridY = minGridY + Math.floor(@height / gridSize) + 1
 	
@@ -76,3 +87,6 @@ class Universe extends GraphicsScene
 				for i in [0..iMax]
 					size = rnd.floatRange(1, 2)
 					@ctx.fillRect(rnd.uFloat(gridSize) + x * gridSize, rnd.uFloat(gridSize) + y * gridSize, size, size)
+		
+		@ctx.restore()
+		

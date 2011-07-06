@@ -22,6 +22,7 @@
 		<script src="/js/Resources.js"></script>
 		<script src="/js/GraphicsItem.js"></script>
 		<script src="/js/GraphicsScene.js"></script>
+		<script src="/js/Dot.js"></script>
 		<script src="/js/Planet.js"></script>
 		<script src="/js/SpaceShip.js"></script>
 		<script src="/js/Universe.js"></script>

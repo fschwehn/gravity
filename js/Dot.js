@@ -12,6 +12,7 @@ Dot = (function() {
   Dot.radius = 15;
   Dot.color1 = new Color(0, 0, 1, 1);
   Dot.color2 = new Color(0.5, 0.5, 1, 0.125);
+  Dot.oscillationActive = true;
   Dot.phs = 0;
   Dot.oscillRange = 1.5;
   Dot.rx = 0;
@@ -55,7 +56,11 @@ Dot = (function() {
       Dot.image.src = canvas.toDataURL("image/png");
       delete canvas;
     }
-    ctx.drawImage(Dot.image, this.pos.x - Dot.rx, this.pos.y - Dot.ry, Dot.rx * 2, Dot.ry * 2);
+    if (Dot.oscillationActive) {
+      ctx.drawImage(Dot.image, this.pos.x - Dot.rx, this.pos.y - Dot.ry, Dot.rx * 2, Dot.ry * 2);
+    } else {
+      ctx.drawImage(Dot.image, this.pos.x - Dot.radius, this.pos.y - Dot.radius, Dot.radius * 2, Dot.radius * 2);
+    }
     return this;
   };
   return Dot;

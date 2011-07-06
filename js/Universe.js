@@ -20,6 +20,8 @@ Universe = (function() {
   Universe.prototype.clear = function() {
     Universe.__super__.clear.apply(this, arguments);
     this.planets = [];
+    this.dots = [];
+    this.bgScaleSpeed = 0.75;
     return this;
   };
   Universe.prototype.populateRandomly = function(numPlanets) {
@@ -40,6 +42,10 @@ Universe = (function() {
   Universe.prototype.addPlanet = function(planet) {
     this.planets.push(planet);
     return this.addItem(planet);
+  };
+  Universe.prototype.addDot = function(dot) {
+    this.dots.push(dot);
+    return this.addItem(dot);
   };
   Universe.prototype.move = function() {
     var accel, d, dir, dist, g, p, _i, _len, _ref;
@@ -74,36 +80,28 @@ Universe = (function() {
     return this.ctx.restore();
   };
   Universe.prototype.renderBackground = function(offset) {
-    var gridSize, i, iMax, maxGridX, maxGridY, minGridX, minGridY, rnd, size, x, y, _results;
-    this.ctx.fillStyle = "#fff";
+    var d, gridSize, i, iMax, maxGridX, maxGridY, minGridX, minGridY, rnd, size, x, y;
+    this.ctx.save();
+    d = offset.mul(this.bgScaleSpeed - 1);
+    this.ctx.translate(d.x, d.y);
+    this.ctx.fillStyle = "#ccc";
     gridSize = 100;
     rnd = new Random;
-    minGridX = Math.floor(-offset.x / gridSize);
-    minGridY = Math.floor(-offset.y / gridSize);
+    minGridX = Math.floor(-offset.x * this.bgScaleSpeed / gridSize);
+    minGridY = Math.floor(-offset.y * this.bgScaleSpeed / gridSize);
     maxGridX = minGridX + Math.floor(this.width / gridSize) + 1;
     maxGridY = minGridY + Math.floor(this.height / gridSize) + 1;
-    _results = [];
     for (x = minGridX; minGridX <= maxGridX ? x <= maxGridX : x >= maxGridX; minGridX <= maxGridX ? x++ : x--) {
-      _results.push((function() {
-        var _results2;
-        _results2 = [];
-        for (y = minGridY; minGridY <= maxGridY ? y <= maxGridY : y >= maxGridY; minGridY <= maxGridY ? y++ : y--) {
-          rnd.seed((x + 1234) * (y - 463));
-          iMax = rnd.uInt(7);
-          _results2.push((function() {
-            var _results3;
-            _results3 = [];
-            for (i = 0; 0 <= iMax ? i <= iMax : i >= iMax; 0 <= iMax ? i++ : i--) {
-              size = rnd.floatRange(1, 2);
-              _results3.push(this.ctx.fillRect(rnd.uFloat(gridSize) + x * gridSize, rnd.uFloat(gridSize) + y * gridSize, size, size));
-            }
-            return _results3;
-          }).call(this));
+      for (y = minGridY; minGridY <= maxGridY ? y <= maxGridY : y >= maxGridY; minGridY <= maxGridY ? y++ : y--) {
+        rnd.seed((x + 1234) * (y - 463));
+        iMax = rnd.uInt(7);
+        for (i = 0; 0 <= iMax ? i <= iMax : i >= iMax; 0 <= iMax ? i++ : i--) {
+          size = rnd.floatRange(1, 2);
+          this.ctx.fillRect(rnd.uFloat(gridSize) + x * gridSize, rnd.uFloat(gridSize) + y * gridSize, size, size);
         }
-        return _results2;
-      }).call(this));
+      }
     }
-    return _results;
+    return this.ctx.restore();
   };
   return Universe;
 })();

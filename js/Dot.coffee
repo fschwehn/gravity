@@ -2,6 +2,8 @@ class Dot extends GraphicsItem
 	@radius: 15
 	@color1: new Color(0, 0, 1, 1)
 	@color2: new Color(0.5, 0.5, 1, 0.125)
+	
+	@oscillationActive: true
 	@phs: 0
 	@oscillRange: 1.5
 	@rx: 0
@@ -53,5 +55,8 @@ class Dot extends GraphicsItem
 			# cleanup
 			delete canvas
 		
-		ctx.drawImage(Dot.image, @pos.x - Dot.rx, @pos.y - Dot.ry, Dot.rx * 2, Dot.ry * 2)
+		if Dot.oscillationActive
+			ctx.drawImage(Dot.image, @pos.x - Dot.rx, @pos.y - Dot.ry, Dot.rx * 2, Dot.ry * 2)
+		else
+			ctx.drawImage(Dot.image, @pos.x - Dot.radius, @pos.y - Dot.radius, Dot.radius * 2, Dot.radius * 2)
 		@
