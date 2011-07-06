@@ -2,18 +2,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>GravityRace</title>
+        <title>gravity</title>
+
+		<link type="text/css" href="/js/lib/jquery-ui/css/trontastic/jquery-ui.css" rel="stylesheet" />	
 		<link rel="stylesheet" type="text/css" href="index.css" media="all" />
+		
+		<script type="text/javascript" src="/js/lib/jquery-ui/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/lib/jquery-ui/js/jquery-ui.min.js"></script>
     </head>
+	
     <body>
-<!--		<h1>GravityRace</h1>-->
+		<h1>gravity</h1>
+		
 		<div id="error">
 			<h3>An Error occurred:</h3>
 			<p class="message"></p>
 		</div>
+		
 		<canvas id="viewport">your browser ain't support no canvas.</canvas>
 		
-		<script src="/js/lib/jquery-1.6.1.min.js"></script>
 		<script src="/js/helpers.js"></script>
 		<script src="/js/xMath.js"></script>
 		<script src="/js/Random.js"></script>
