@@ -1,9 +1,13 @@
 class Universe extends GraphicsScene
 	constructor: (ctx, width, height, fmps = 25) -> 
 		super(ctx, width, height, fmps)
-		
-		@planets = []
 		@ship = new SpaceShip(@center, 20, 'kspaceduel.png')
+		@clear()
+		
+	clear: ->
+		super
+		@planets = []
+		@
 	
 	populateRandomly: (numPlanets) ->
 		# add planets

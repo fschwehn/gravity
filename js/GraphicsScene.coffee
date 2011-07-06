@@ -7,6 +7,10 @@ class GraphicsScene
 		@items = []
 		@frameCount = 0
 		
+	clear: ->
+		@items = []
+		@
+		
 	# ---------------------------
 	# animation stuff
 	# ---------------------------

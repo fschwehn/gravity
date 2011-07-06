@@ -11,6 +11,10 @@ GraphicsScene = (function() {
     this.items = [];
     this.frameCount = 0;
   }
+  GraphicsScene.prototype.clear = function() {
+    this.items = [];
+    return this;
+  };
   GraphicsScene.prototype.start = function() {
     var self;
     if (!this.timer) {

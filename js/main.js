@@ -1,4 +1,4 @@
-var $canvas, canvas, error, height, resources, universe, width;
+var $canvas, canvas, error, height, level, resources, universe, width;
 error = function(e) {
   var text;
   log(e);
@@ -21,7 +21,8 @@ try {
   canvas.height = height;
   resources = new Resources;
   universe = new Universe(canvas.getContext('2d'), width, height, 100 / 3);
-  universe.populateRandomly(11);
+  level = new Level('level_00', universe);
+  level.initialize();
   resources.addCompletedListener(function() {
     return universe.start();
   });

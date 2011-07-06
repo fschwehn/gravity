@@ -25,6 +25,7 @@
 		<script src="/js/Planet.js"></script>
 		<script src="/js/SpaceShip.js"></script>
 		<script src="/js/Universe.js"></script>
+		<script src="/js/Level.js"></script>
 		<script src="/js/main.js"></script>
     </body>
 </html>
