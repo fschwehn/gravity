@@ -4,6 +4,7 @@
 }
 
 html {
+	font-size: 12px;
 /*	background-color: #333;*/
 }
 
@@ -17,10 +18,25 @@ body {
 
 #error {
 	padding: 5px 10px;
-	background-color: #844;
-	color: #fff;
-	border: solid 2px #f00;
 	display: none;
+}
+
+header h1 {
+	display: inline;
+}
+
+header button {
+	float: right;
+}
+
+#main-menu {
+	margin: 20px;
+	display: none;
+}
+
+ul.menu li {
+	list-style: none;
+	cursor: pointer;
 }
 
 #viewport {

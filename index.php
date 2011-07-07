@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,11 +16,18 @@
     </head>
 	
     <body>
-		<h1>gravity</h1>
+		<header class="ui-widget ui-header ui-corner-all ui-state-default">
+			<h1>gravity</h1>
+			<button id="but-main-menu">main menu</button>
+		</header
 		
-		<div id="error">
-			<h3>An Error occurred:</h3>
+		<div id="error" class="ui-widget ui-corner-all ui-state-error">
+			<h3><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>An Error occurred:</h3>
 			<p class="message"></p>
+		</div>
+		
+		<div id="main-menu">
+			<?php require 'main_menu.php' ?>
 		</div>
 		
 		<canvas id="viewport">your browser ain't support no canvas.</canvas>
@@ -34,6 +45,7 @@
 		<script src="/js/SpaceShip.js"></script>
 		<script src="/js/Universe.js"></script>
 		<script src="/js/Level.js"></script>
+		<script src="/js/MainMenu.js"></script>
 		<script src="/js/main.js"></script>
     </body>
 </html>
