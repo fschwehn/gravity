@@ -34,13 +34,13 @@
 		
 		<canvas id="viewport">your browser ain't support no canvas.</canvas>
 		
+		<script src="lib/jquery-ui/js/jquery.min.js"></script>
+		<script src="lib/jquery-ui/js/jquery-ui.min.js"></script>
+		
 		<?php
 		require_once 'classes/ScriptPack.php';
 		
 		$scriptPack = new ScriptPack('/js/all.js', array(
-			'/lib/jquery-ui/js/jquery.min.js',
-			'/lib/jquery-ui/js/jquery-ui.min.js',
-			
 			'/js/helpers.js',
 			'/js/xMath.js',
 			'/js/Random.js',
