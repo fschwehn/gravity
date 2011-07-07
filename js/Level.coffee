@@ -1,16 +1,11 @@
 class Level
-	constructor: (id, universe) ->
+	constructor: (id) ->
 		@id = id
-		@universe = universe
+		@planets = []
+		@dots = []
+		@ship = new SpaceShip(v2(), 20, 'kspaceduel.png')
 	
-	initialize: ->
+	load: (callback) ->
 		Level.current = @
-		
-		@universe.clear()
-		
-		script = document.createElement 'script'
-		script.src = "/levels/#{ @id }.js"
-		$('body').append(script)
-		
-		@universe.addItem @universe.ship
+		$.getScript("/levels/#{ @id }.js", => callback())
 		@

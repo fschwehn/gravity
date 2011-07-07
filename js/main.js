@@ -15,6 +15,9 @@ error = function(e) {
 try {
   if (true) {
     $canvas = $('#viewport');
+    $canvas.bind('select', function() {
+      return false;
+    });
     width = $canvas.width();
     height = $canvas.height();
     canvas = $canvas[0];

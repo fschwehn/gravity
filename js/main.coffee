@@ -1,3 +1,4 @@
+# @todo move universe to a closure
 error = (e) ->
 	log e
 	text
@@ -10,6 +11,7 @@ try
 	if true
 		# setup canvas
 		$canvas = $('#viewport')
+		$canvas.bind 'select', -> false
 
 		width = $canvas.width()
 		height = $canvas.height()
@@ -25,6 +27,7 @@ try
 		universe = new Universe(canvas.getContext('2d'), width, height, 100 / 3)
 		universe.ship.speed.set -30, -50
 		universe.addItem universe.ship
+		# @todo der darf immer nur einmal ausführen:
 		resources.addCompletedListener -> universe.start()
 		
 		# setup main menu

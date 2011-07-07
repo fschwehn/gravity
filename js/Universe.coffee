@@ -11,24 +11,6 @@ class Universe extends GraphicsScene
 		@bgScaleSpeed = 0.75
 		@
 	
-	populateRandomly: (numPlanets) ->
-		# add planets
-		rnd = new Random (Math.random() * 1231548)
-		for i in [1..numPlanets]
-			posRad = rnd.floatRange(-Math.PI, Math.PI)
-			posX = Math.cos(posRad)
-			posY = Math.sin(posRad)
-			pos = v2(posX, posY).mul rnd.floatRange(150, 500)
-			radius = rnd.floatRange(8, 60)
-			color = new Color(1, 1, 1, 1)
-			
-			@addPlanet( new Planet(@center.add(pos), radius, color) );
-
-		# add ship
-		@addItem(@ship)
-		@
-	
-
 	addPlanet: (planet) ->
 		@planets.push planet
 		@addItem(planet)
@@ -36,6 +18,16 @@ class Universe extends GraphicsScene
 	addDot: (dot) ->
 		@dots.push dot
 		@addItem(dot)
+		
+	setLevel: (level) ->
+		@stop()
+		@clear()
+		level.load =>
+			@addPlanet p for p in level.planets
+			@addDot d for d in level.dots
+			@addItem @ship = level.ship
+			@start()
+		@
 		
 	move: ->
 		Dot.oscillate()

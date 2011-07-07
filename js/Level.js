@@ -1,17 +1,17 @@
 var Level;
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 Level = (function() {
-  function Level(id, universe) {
+  function Level(id) {
     this.id = id;
-    this.universe = universe;
+    this.planets = [];
+    this.dots = [];
+    this.ship = new SpaceShip(v2(), 20, 'kspaceduel.png');
   }
-  Level.prototype.initialize = function() {
-    var script;
+  Level.prototype.load = function(callback) {
     Level.current = this;
-    this.universe.clear();
-    script = document.createElement('script');
-    script.src = "/levels/" + this.id + ".js";
-    $('body').append(script);
-    this.universe.addItem(this.universe.ship);
+    $.getScript("/levels/" + this.id + ".js", __bind(function() {
+      return callback();
+    }, this));
     return this;
   };
   return Level;

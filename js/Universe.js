@@ -6,7 +6,7 @@ var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, par
   child.prototype = new ctor;
   child.__super__ = parent.prototype;
   return child;
-};
+}, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 Universe = (function() {
   __extends(Universe, GraphicsScene);
   function Universe(ctx, width, height, fmps) {
@@ -24,21 +24,6 @@ Universe = (function() {
     this.bgScaleSpeed = 0.75;
     return this;
   };
-  Universe.prototype.populateRandomly = function(numPlanets) {
-    var color, i, pos, posRad, posX, posY, radius, rnd;
-    rnd = new Random(Math.random() * 1231548);
-    for (i = 1; 1 <= numPlanets ? i <= numPlanets : i >= numPlanets; 1 <= numPlanets ? i++ : i--) {
-      posRad = rnd.floatRange(-Math.PI, Math.PI);
-      posX = Math.cos(posRad);
-      posY = Math.sin(posRad);
-      pos = v2(posX, posY).mul(rnd.floatRange(150, 500));
-      radius = rnd.floatRange(8, 60);
-      color = new Color(1, 1, 1, 1);
-      this.addPlanet(new Planet(this.center.add(pos), radius, color));
-    }
-    this.addItem(this.ship);
-    return this;
-  };
   Universe.prototype.addPlanet = function(planet) {
     this.planets.push(planet);
     return this.addItem(planet);
@@ -46,6 +31,26 @@ Universe = (function() {
   Universe.prototype.addDot = function(dot) {
     this.dots.push(dot);
     return this.addItem(dot);
+  };
+  Universe.prototype.setLevel = function(level) {
+    this.stop();
+    this.clear();
+    level.load(__bind(function() {
+      var d, p, _i, _j, _len, _len2, _ref, _ref2;
+      _ref = level.planets;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        p = _ref[_i];
+        this.addPlanet(p);
+      }
+      _ref2 = level.dots;
+      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+        d = _ref2[_j];
+        this.addDot(d);
+      }
+      this.addItem(this.ship = level.ship);
+      return this.start();
+    }, this));
+    return this;
   };
   Universe.prototype.move = function() {
     var accel, d, dir, dist, dot, g, p, _i, _j, _len, _len2, _ref, _ref2;

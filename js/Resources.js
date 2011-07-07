@@ -40,18 +40,20 @@ Resources = (function() {
   Resources.prototype.loadImage = function(fileName, callback) {
     var img;
     img = this.imageHash[fileName];
-    if (!img) {
-      this.imageHash[fileName] = img = new Image;
-      ++this.incomplete;
-      $(img).bind('load', __bind(function() {
-        callback(img);
-        return this.onLoad();
-      }, this));
-      $(img).bind('error', __bind(function() {
-        return error("The resource " + fileName + " could not be found!");
-      }, this));
-      img.src = '/images/' + fileName;
+    if (img) {
+      callback(img);
+      return this;
     }
+    this.imageHash[fileName] = img = new Image;
+    ++this.incomplete;
+    $(img).bind('load', __bind(function() {
+      callback(img);
+      return this.onLoad();
+    }, this));
+    $(img).bind('error', __bind(function() {
+      return error("The resource " + fileName + " could not be found!");
+    }, this));
+    img.src = '/images/' + fileName;
     return this;
   };
   Resources.prototype.loadAudio = function(fileName, callback) {

@@ -11,15 +11,15 @@ class MainMenu
 		})
 		
 		@dialog.find('li')
-			.hover ->
-				$(this).toggleClass 'ui-state-hover ui-state-active'
+			.hover(
+				-> $(this).addClass('ui-state-hover').removeClass('ui-state-active'),
+				-> $(this).addClass('ui-state-active').removeClass('ui-state-hover')
+			)
 			.click ->
 				$('#main-menu').dialog 'close'
-				universe.stop()
-				levelName = $(this).text()
-				level = new Level levelName, universe
-				level.initialize(universe)
-				universe.start()
+				universe.setLevel(new Level $(this).text(), ->
+					universe.start()
+				)
 		
 	show: ->
 		@dialog.dialog('open')

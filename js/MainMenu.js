@@ -14,15 +14,14 @@ MainMenu = (function() {
       title: 'choose a level'
     });
     this.dialog.find('li').hover(function() {
-      return $(this).toggleClass('ui-state-hover ui-state-active');
+      return $(this).addClass('ui-state-hover').removeClass('ui-state-active');
+    }, function() {
+      return $(this).addClass('ui-state-active').removeClass('ui-state-hover');
     }).click(function() {
-      var level, levelName;
       $('#main-menu').dialog('close');
-      universe.stop();
-      levelName = $(this).text();
-      level = new Level(levelName, universe);
-      level.initialize(universe);
-      return universe.start();
+      return universe.setLevel(new Level($(this).text(), function() {
+        return universe.start();
+      }));
     });
   }
   MainMenu.prototype.show = function() {

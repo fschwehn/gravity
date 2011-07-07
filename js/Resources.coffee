@@ -43,17 +43,19 @@ class Resources
 	# get an image object eg. 'my_image.png'.
 	loadImage: (fileName, callback) ->
 		img = @imageHash[fileName]
-		if !img
-			@imageHash[fileName] = img = new Image
-			++@incomplete
-			$(img).bind 'load', =>
-				callback img
-				@onLoad()
-			$(img).bind 'error', =>
-				error "The resource #{ fileName } could not be found!"
-			img.src = '/images/' + fileName
+		if img
+			callback img
+			return @
+		
+		@imageHash[fileName] = img = new Image
+		++@incomplete
+		$(img).bind 'load', =>
+			callback img
+			@onLoad()
+		$(img).bind 'error', =>
+			error "The resource #{ fileName } could not be found!"
+		img.src = '/images/' + fileName
 		@
-	
 		
 	# get an audio object eg. 'my_audio'. (omit the extension!)
 	loadAudio: (fileName, callback) ->
