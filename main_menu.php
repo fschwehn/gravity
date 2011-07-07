@@ -1,7 +1,7 @@
 <?php
 
-$main_menu = function() {
-	$path = 'levels/';
+function main_menu() {
+	$path = dirname(__FILE__) . '/levels/';
 	
 	echo '<ul class="menu">';
 	
@@ -16,5 +16,5 @@ $main_menu = function() {
 	echo '</ul>';
 };
 
-$main_menu();
+main_menu();
 
