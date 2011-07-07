@@ -30,7 +30,6 @@ class ScriptPack
 	 * @return string 
 	 */
 	public function toHtml() {
-//		return $this->toSingleTags();
 		return $this->toPackedScript();
 	}
 	
@@ -40,18 +39,32 @@ class ScriptPack
 	 * @return string
 	 */
 	protected function toPackedScript() {
+		$root = $_SERVER['DOCUMENT_ROOT'];
 		$src = $this->name;
 		
 		if(APPLICATION_ENV == APPLICATION_ENV_DEVELOPMENT) {
-			// concat and save all scripts
 			$data = '';
+			
+			// concat and save all scripts
 			foreach($this->scripts as $fileName) {
-				$filePath = $_SERVER['DOCUMENT_ROOT'] . $fileName;
-				$data .= file_get_contents($filePath) . PHP_EOL;
+				$coffeeFile	= $root . preg_replace('{\.js$}', '.coffee', $fileName);
+				$jsFile		= $root . $fileName;
+
+				// coffee script compilation
+				if(file_exists($coffeeFile)) {
+					if( !file_exists($jsFile) || ( filemtime($coffeeFile) > filemtime($jsFile) ) ) {
+						$result;
+						$text = system('coffee -cb ' . $coffeeFile, $result);
+						if($text || $result) {
+							die("compilation of '$coffeeFile' failed!");
+						}
+					}
+				}
+				
+				$data .= file_get_contents($jsFile) . PHP_EOL;
 			}
 			file_put_contents($_SERVER['DOCUMENT_ROOT'] . $src, $data);
 		}
-		
 		return '<script src="' . $src . '"></script>' . PHP_EOL;
 	}
 	
