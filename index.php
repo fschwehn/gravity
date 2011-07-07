@@ -8,11 +8,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>gravity</title>
 
-		<link type="text/css" href="/js/lib/jquery-ui/css/trontastic/jquery-ui.css" rel="stylesheet" />	
+		<link type="text/css" href="/lib/jquery-ui/css/trontastic/jquery-ui.css" rel="stylesheet" />	
 		<link rel="stylesheet" type="text/css" href="index.css" media="all" />
 		
-		<script type="text/javascript" src="/js/lib/jquery-ui/js/jquery.min.js"></script>
-		<script type="text/javascript" src="/js/lib/jquery-ui/js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/lib/jquery-ui/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/lib/jquery-ui/js/jquery-ui.min.js"></script>
     </head>
 	
     <body>
