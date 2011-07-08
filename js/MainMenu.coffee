@@ -8,6 +8,9 @@ class MainMenu
 		@dialog = $ '#main-menu'
 		@dialog.dialog({
 			title: 'choose a level'
+			position: 'top'
+			show: 'fade'
+			hide: 'fade'
 		})
 		
 		@dialog.find('li')

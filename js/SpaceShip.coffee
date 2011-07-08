@@ -17,9 +17,9 @@ class SpaceShip extends GraphicsItem
 		@mouseDown = false
 		
 		# load resources ...........................
-		resources.loadImage image, (img) => @shipImage = img
-		resources.loadImage "explosion.png", (img) => @explosionImage = img
-		resources.loadAudio 'explosion', (audio) => @foo = audio
+		resources.loadImage image, (r) => @shipImage = r
+		resources.loadImage "explosion.png", (r) => @explosionImage = r
+		resources.loadAudio 'explosion_00', (r) => @explosionAudio = r
 		
 	setScene: (scene) ->
 		super scene
@@ -73,7 +73,7 @@ class SpaceShip extends GraphicsItem
 		@
 	
 	explode: ->
-		@foo.play()
+		@explosionAudio.play()
 		@speed = v2()
 		@alive = false
 		@shipImage = @explosionImage

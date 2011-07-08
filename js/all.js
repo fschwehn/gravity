@@ -455,14 +455,14 @@ SpaceShip = (function() {
     this.speed = new V2;
     this.alive = true;
     this.mouseDown = false;
-    resources.loadImage(image, __bind(function(img) {
-      return this.shipImage = img;
+    resources.loadImage(image, __bind(function(r) {
+      return this.shipImage = r;
     }, this));
-    resources.loadImage("explosion.png", __bind(function(img) {
-      return this.explosionImage = img;
+    resources.loadImage("explosion.png", __bind(function(r) {
+      return this.explosionImage = r;
     }, this));
-    resources.loadAudio('explosion', __bind(function(audio) {
-      return this.foo = audio;
+    resources.loadAudio('explosion_00', __bind(function(r) {
+      return this.explosionAudio = r;
     }, this));
   }
   SpaceShip.prototype.setScene = function(scene) {
@@ -523,7 +523,7 @@ SpaceShip = (function() {
     return this;
   };
   SpaceShip.prototype.explode = function() {
-    this.foo.play();
+    this.explosionAudio.play();
     this.speed = v2();
     this.alive = false;
     this.shipImage = this.explosionImage;
@@ -720,7 +720,10 @@ MainMenu = (function() {
     }, this));
     this.dialog = $('#main-menu');
     this.dialog.dialog({
-      title: 'choose a level'
+      title: 'choose a level',
+      position: 'top',
+      show: 'fade',
+      hide: 'fade'
     });
     this.dialog.find('li').hover(function() {
       return $(this).addClass('ui-state-hover').removeClass('ui-state-active');

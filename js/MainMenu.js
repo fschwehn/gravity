@@ -11,7 +11,10 @@ MainMenu = (function() {
     }, this));
     this.dialog = $('#main-menu');
     this.dialog.dialog({
-      title: 'choose a level'
+      title: 'choose a level',
+      position: 'top',
+      show: 'fade',
+      hide: 'fade'
     });
     this.dialog.find('li').hover(function() {
       return $(this).addClass('ui-state-hover').removeClass('ui-state-active');
