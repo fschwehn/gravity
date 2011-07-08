@@ -64,7 +64,7 @@
 			</tbody>
 		</table>
 
-		<script src="/js/lib/jquery-1.6.1.min.js"></script>
+		<script src="/lib/jquery-ui/js/jquery.min.js"></script>
 		<script>
 			// check canplay events
 			$('audio').bind('canplay', function(){
