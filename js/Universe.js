@@ -85,6 +85,7 @@ Universe = (function() {
     return Universe.__super__.move.apply(this, arguments);
   };
   Universe.prototype.hitDot = function(dot) {
+    dot.collect();
     this.dots.splice(this.dots.indexOf(dot), 1);
     return this.removeItem(dot);
   };

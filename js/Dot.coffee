@@ -19,7 +19,13 @@ class Dot extends GraphicsItem
 		
 	
 	constructor: (pos, order = 0) ->
+		if !Dot.audio 
+			resources.loadAudio 'dot_collected', (r) -> Dot.audio = r
 		@pos = pos
+		
+	collect: ->
+		Dot.audio.play()
+		@
 		
 	render: (ctx) ->
 		if !Dot.image

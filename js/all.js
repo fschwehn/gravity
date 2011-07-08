@@ -352,8 +352,17 @@ Dot = (function() {
     if (order == null) {
       order = 0;
     }
+    if (!Dot.audio) {
+      resources.loadAudio('dot_collected', function(r) {
+        return Dot.audio = r;
+      });
+    }
     this.pos = pos;
   }
+  Dot.prototype.collect = function() {
+    Dot.audio.play();
+    return this;
+  };
   Dot.prototype.render = function(ctx) {
     var c, canvas, d, g, r;
     if (!Dot.image) {
@@ -651,6 +660,7 @@ Universe = (function() {
     return Universe.__super__.move.apply(this, arguments);
   };
   Universe.prototype.hitDot = function(dot) {
+    dot.collect();
     this.dots.splice(this.dots.indexOf(dot), 1);
     return this.removeItem(dot);
   };

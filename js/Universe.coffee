@@ -56,6 +56,7 @@ class Universe extends GraphicsScene
 		super
 	
 	hitDot: (dot) ->
+		dot.collect()
 		@dots.splice @dots.indexOf(dot), 1
 		@removeItem dot
 	
