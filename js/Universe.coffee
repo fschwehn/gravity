@@ -70,6 +70,7 @@ class Universe extends GraphicsScene
 		@renderBackground offset
 		super
 		@ctx.restore()
+		@renderTime()
 		
 	renderBackground: (offset) ->
 		@ctx.save()
@@ -95,4 +96,29 @@ class Universe extends GraphicsScene
 					@ctx.fillRect(rnd.uFloat(gridSize) + x * gridSize, rnd.uFloat(gridSize) + y * gridSize, size, size)
 		
 		@ctx.restore()
+	
+	renderTime: ->
+		zeroFill = (number, n) ->
+			s = '' + number
+			s = '0' + s while s.length < n
+			s
+	
+		timeString = (seconds) ->
+			mm = Math.floor(seconds * 1000) % 1000
+			m = Math.floor seconds / 60
+			s = Math.floor(seconds) % 60
+			"#{ m }:#{ zeroFill(s, 2) }:#{ zeroFill(mm, 3) }"
+	
+		@ctx.save()
 		
+		text = timeString @frameCount / @fmps
+		
+		fontSize = 30
+		@ctx.font = fontSize + 'px sans-serife'
+		textWidth = @ctx.measureText(text).width
+		
+		@ctx.fillStyle = '#fff'
+		@ctx.fillText text, @width - textWidth, @height - fontSize
+		
+		@ctx.restore()
+		@

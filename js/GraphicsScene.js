@@ -18,6 +18,7 @@ GraphicsScene = (function() {
   };
   GraphicsScene.prototype.start = function() {
     var self;
+    this.frameCount = 0;
     if (!this.timer) {
       self = this;
       this.timer = window.setInterval(function() {

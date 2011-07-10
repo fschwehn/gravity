@@ -97,7 +97,8 @@ Universe = (function() {
     this.ctx.translate(offset.x, offset.y);
     this.renderBackground(offset);
     Universe.__super__.render.apply(this, arguments);
-    return this.ctx.restore();
+    this.ctx.restore();
+    return this.renderTime();
   };
   Universe.prototype.renderBackground = function(offset) {
     var d, gridSize, i, iMax, maxGridX, maxGridY, minGridX, minGridY, rnd, size, x, y;
@@ -122,6 +123,33 @@ Universe = (function() {
       }
     }
     return this.ctx.restore();
+  };
+  Universe.prototype.renderTime = function() {
+    var fontSize, text, textWidth, timeString, zeroFill;
+    zeroFill = function(number, n) {
+      var s;
+      s = '' + number;
+      while (s.length < n) {
+        s = '0' + s;
+      }
+      return s;
+    };
+    timeString = function(seconds) {
+      var m, mm, s;
+      mm = Math.floor(seconds * 1000) % 1000;
+      m = Math.floor(seconds / 60);
+      s = Math.floor(seconds) % 60;
+      return "" + m + ":" + (zeroFill(s, 2)) + ":" + (zeroFill(mm, 3));
+    };
+    this.ctx.save();
+    text = timeString(this.frameCount / this.fmps);
+    fontSize = 30;
+    this.ctx.font = fontSize + 'px sans-serife';
+    textWidth = this.ctx.measureText(text).width;
+    this.ctx.fillStyle = '#fff';
+    this.ctx.fillText(text, this.width - textWidth, this.height - fontSize);
+    this.ctx.restore();
+    return this;
   };
   return Universe;
 })();

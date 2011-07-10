@@ -16,6 +16,8 @@ class GraphicsScene
 	# animation stuff
 	# ---------------------------
 	start: ->
+		@frameCount = 0
+		
 		if !@timer
 			self = @
 			@timer = window.setInterval(
