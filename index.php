@@ -47,6 +47,7 @@
 			'/js/V2.js',
 			'/js/Color.js',
 			'/js/Resources.js',
+			'/js/AudioSampler.js',
 			'/js/GraphicsItem.js',
 			'/js/GraphicsScene.js',
 			'/js/Dot.js',

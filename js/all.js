@@ -229,6 +229,38 @@ Resources = (function() {
   };
   return Resources;
 })();
+var AudioSampler;
+AudioSampler = (function() {
+  function AudioSampler(numVoices) {
+    if (numVoices == null) {
+      numVoices = 4;
+    }
+    this.channels = [];
+    this.numVoices = 0;
+    this.setNumVoices(numVoices);
+    this.nextChannel = 0;
+  }
+  AudioSampler.prototype.setNumVoices = function(numVoices) {
+    if (this.numVoices > numVoices) {
+      this.channels.splice(numVoices);
+    } else {
+      while (this.channels.length < numVoices) {
+        this.channels.push(new Audio);
+      }
+    }
+    this.numVoices = numVoices;
+    return this;
+  };
+  AudioSampler.prototype.play = function(url) {
+    var c;
+    log(this.nextChannel);
+    c = this.channels[this.nextChannel];
+    c.src = url;
+    c.play();
+    return this.nextChannel = (this.nextChannel + 1) % this.numVoices;
+  };
+  return AudioSampler;
+})();
 var GraphicsItem;
 GraphicsItem = (function() {
   function GraphicsItem() {}
@@ -260,6 +292,7 @@ GraphicsScene = (function() {
     this.timer;
     this.items = [];
     this.frameCount = 0;
+    this.udioSampler = null;
   }
   GraphicsScene.prototype.clear = function() {
     this.items = [];
@@ -352,15 +385,10 @@ Dot = (function() {
     if (order == null) {
       order = 0;
     }
-    if (!Dot.audio) {
-      resources.loadAudio('dot_collected', function(r) {
-        return Dot.audio = r;
-      });
-    }
     this.pos = pos;
   }
   Dot.prototype.collect = function() {
-    Dot.audio.play();
+    this.scene.audioSampler.play('/audio/dot_collected.mp3');
     return this;
   };
   Dot.prototype.render = function(ctx) {
@@ -589,6 +617,7 @@ Universe = (function() {
       fmps = 25;
     }
     Universe.__super__.constructor.call(this, ctx, width, height, fmps);
+    this.audioSampler = new AudioSampler(4);
     this.ship = new SpaceShip(this.center, 20, 'kspaceduel.png');
     this.clear();
   }

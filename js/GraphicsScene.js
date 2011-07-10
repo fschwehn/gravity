@@ -10,6 +10,7 @@ GraphicsScene = (function() {
     this.timer;
     this.items = [];
     this.frameCount = 0;
+    this.udioSampler = null;
   }
   GraphicsScene.prototype.clear = function() {
     this.items = [];

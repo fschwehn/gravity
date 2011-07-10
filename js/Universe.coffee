@@ -1,6 +1,9 @@
 class Universe extends GraphicsScene
 	constructor: (ctx, width, height, fmps = 25) -> 
 		super(ctx, width, height, fmps)
+		
+		@audioSampler = new AudioSampler 4	
+		
 		@ship = new SpaceShip(@center, 20, 'kspaceduel.png')
 		@clear()
 		

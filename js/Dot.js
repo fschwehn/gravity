@@ -34,15 +34,10 @@ Dot = (function() {
     if (order == null) {
       order = 0;
     }
-    if (!Dot.audio) {
-      resources.loadAudio('dot_collected', function(r) {
-        return Dot.audio = r;
-      });
-    }
     this.pos = pos;
   }
   Dot.prototype.collect = function() {
-    Dot.audio.play();
+    this.scene.audioSampler.play('/audio/dot_collected.mp3');
     return this;
   };
   Dot.prototype.render = function(ctx) {

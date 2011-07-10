@@ -6,6 +6,7 @@ class GraphicsScene
 		@timer
 		@items = []
 		@frameCount = 0
+		@udioSampler = null
 		
 	clear: ->
 		@items = []

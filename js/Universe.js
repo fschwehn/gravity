@@ -14,6 +14,7 @@ Universe = (function() {
       fmps = 25;
     }
     Universe.__super__.constructor.call(this, ctx, width, height, fmps);
+    this.audioSampler = new AudioSampler(4);
     this.ship = new SpaceShip(this.center, 20, 'kspaceduel.png');
     this.clear();
   }

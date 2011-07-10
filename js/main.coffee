@@ -22,7 +22,7 @@ try
 
 		# init resources
 		resources = new Resources
-
+		
 		# setup universe
 		universe = new Universe(canvas.getContext('2d'), width, height, 100 / 3)
 		universe.ship.speed.set -30, -50
