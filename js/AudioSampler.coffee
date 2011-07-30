@@ -16,7 +16,6 @@ class AudioSampler
 		@
 		
 	play: (url) ->
-		log @nextChannel
 		c = @channels[@nextChannel]
 		c.src = url
 		c.play()

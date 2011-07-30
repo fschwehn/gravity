@@ -253,7 +253,6 @@ AudioSampler = (function() {
   };
   AudioSampler.prototype.play = function(url) {
     var c;
-    log(this.nextChannel);
     c = this.channels[this.nextChannel];
     c.src = url;
     c.play();
@@ -821,7 +820,7 @@ error = function(e) {
     case 'object':
       text = e.toString();
   }
-  return $('#error').append('<p class="message">' + text + '</p>').show();
+  return $('#error').append('<p class="message">' + text + '</p>').fadeIn(600);
 };
 try {
   if (true) {

@@ -5,7 +5,8 @@ error = (e) ->
 	switch typeof e
 		when 'string' then text = e
 		when 'object' then text = e.toString()
-	$('#error').append('<p class="message">' + text + '</p>').show()
+	$('#error').append('<p class="message">' + text + '</p>')
+		.fadeIn(600)
 
 try
 	if true

@@ -22,7 +22,6 @@ AudioSampler = (function() {
   };
   AudioSampler.prototype.play = function(url) {
     var c;
-    log(this.nextChannel);
     c = this.channels[this.nextChannel];
     c.src = url;
     c.play();

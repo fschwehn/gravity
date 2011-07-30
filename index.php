@@ -21,7 +21,7 @@
 		<header class="ui-widget ui-header ui-corner-all ui-state-default">
 			<h1>gravity</h1>
 			<button id="but-main-menu">main menu</button>
-		</header
+		</header>
 		
 		<div id="error" class="ui-widget ui-corner-all ui-state-error">
 			<h3><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>An Error occurred:</h3>
