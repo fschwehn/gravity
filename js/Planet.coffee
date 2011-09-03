@@ -1,6 +1,7 @@
 class Planet extends GraphicsItem
-	constructor: (@pos, @radius, @color) ->
+	constructor: (@pos, @radius, @color, @antigravity = false) ->
 		@mass = 4 / 3 * Math.PI * Math.cube(@radius)
+		@mass *= -1 if antigravity
 	
 	render: (ctx) ->
 		if !@image
@@ -14,12 +15,19 @@ class Planet extends GraphicsItem
 			c.clearRect(0, 0, d, d)
 			
 			# create gradient
+			rs = 1.125
+			rs = 1 if @antigravity
 			g = c.createRadialGradient(
 				@radius, @radius, 0, 
-				@radius * 1.125, @radius * 1.125, @radius
+				@radius * rs, @radius * rs, @radius
 			)
-			g.addColorStop(0, @color.toCssString());
-			g.addColorStop(1, new Color(0, 0, 0, @color.a).toCssString());
+			if @antigravity
+				g.addColorStop(0, new Color(0, 0, 0, 0).toCssString());
+				g.addColorStop(0.8, @color.toCssString());
+				g.addColorStop(1, new Color(0, 0, 0, 0).toCssString());
+			else
+				g.addColorStop(0, @color.toCssString());
+				g.addColorStop(1, new Color(0, 0, 0, @color.a).toCssString());
 
 			# create path
 			c.beginPath();

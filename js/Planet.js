@@ -9,14 +9,18 @@ var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, par
 };
 Planet = (function() {
   __extends(Planet, GraphicsItem);
-  function Planet(pos, radius, color) {
+  function Planet(pos, radius, color, antigravity) {
     this.pos = pos;
     this.radius = radius;
     this.color = color;
+    this.antigravity = antigravity != null ? antigravity : false;
     this.mass = 4 / 3 * Math.PI * Math.cube(this.radius);
+    if (antigravity) {
+      this.mass *= -1;
+    }
   }
   Planet.prototype.render = function(ctx) {
-    var c, canvas, d, g;
+    var c, canvas, d, g, rs;
     if (!this.image) {
       d = this.radius * 2;
       canvas = document.createElement('canvas');
@@ -24,9 +28,19 @@ Planet = (function() {
       canvas.height = d;
       c = canvas.getContext('2d');
       c.clearRect(0, 0, d, d);
-      g = c.createRadialGradient(this.radius, this.radius, 0, this.radius * 1.125, this.radius * 1.125, this.radius);
-      g.addColorStop(0, this.color.toCssString());
-      g.addColorStop(1, new Color(0, 0, 0, this.color.a).toCssString());
+      rs = 1.125;
+      if (this.antigravity) {
+        rs = 1;
+      }
+      g = c.createRadialGradient(this.radius, this.radius, 0, this.radius * rs, this.radius * rs, this.radius);
+      if (this.antigravity) {
+        g.addColorStop(0, new Color(0, 0, 0, 0).toCssString());
+        g.addColorStop(0.8, this.color.toCssString());
+        g.addColorStop(1, new Color(0, 0, 0, 0).toCssString());
+      } else {
+        g.addColorStop(0, this.color.toCssString());
+        g.addColorStop(1, new Color(0, 0, 0, this.color.a).toCssString());
+      }
       c.beginPath();
       c.arc(this.radius, this.radius, this.radius, -180, 180);
       c.closePath();
