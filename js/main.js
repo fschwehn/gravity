@@ -13,7 +13,7 @@ error = function(e) {
   return $('#error').append('<p class="message">' + text + '</p>').fadeIn(600);
 };
 try {
-  if (true) {
+  if (false) {
     $canvas = $('#viewport');
     $canvas.bind('select', function() {
       return false;
