@@ -9,7 +9,7 @@ error = (e) ->
 		.fadeIn(600)
 
 try
-	if false
+	if true
 		# setup canvas
 		$canvas = $('#viewport')
 		$canvas.bind 'select', -> false
