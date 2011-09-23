@@ -1,3 +1,3 @@
 #!/bin/bash
 
-coffee -cwb ./js
+coffee -cwb ./public/js

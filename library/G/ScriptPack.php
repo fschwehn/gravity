@@ -1,6 +1,6 @@
 <?php
 
-class ScriptPack
+class G_ScriptPack
 {
 	/**
 	 * the file name used for the packed script
@@ -42,7 +42,7 @@ class ScriptPack
 		$root = $_SERVER['DOCUMENT_ROOT'];
 		$src = $this->name;
 		
-		if(APPLICATION_ENV == APPLICATION_ENV_DEVELOPMENT) {
+		if($_SERVER['APPLICATION_ENV'] == 'development') {
 			$data = '';
 			
 			// concat and save all scripts
