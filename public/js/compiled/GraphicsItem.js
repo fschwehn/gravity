@@ -18,4 +18,5 @@
     };
     return GraphicsItem;
   })();
+  this.GraphicsItem = GraphicsItem;
 }).call(this);

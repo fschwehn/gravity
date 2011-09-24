@@ -1,12 +1,12 @@
 # @todo move universe to a closure
 error = (e) ->
-	log e
+	console?.log e
 	text
 	switch typeof e
 		when 'string' then text = e
 		when 'object' then text = e.toString()
-	$('#error').append('<p class="message">' + text + '</p>')
-		.fadeIn(600)
+	$('#error')
+		.append('<p class="message">' + text + '</p>').fadeIn(600)
 
 try
 	# setup canvas

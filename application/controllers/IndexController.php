@@ -10,23 +10,23 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $scriptPack = new G_ScriptPack('/js/all.js', array(
-			'/js/helpers',
-			'/js/xMath.js',
-			'/js/Random',
-			'/js/V2',
-			'/js/Color',
-			'/js/Resources',
-			'/js/AudioSampler',
-			'/js/GraphicsItem',
-			'/js/GraphicsScene',
-			'/js/Dot',
-			'/js/Planet',
-			'/js/SpaceShip',
-			'/js/Universe',
-			'/js/Level',
-			'/js/MainMenu',
-			'/js/main',
+        $scriptPack = new G_ScriptPack('all', array(
+			'helpers',
+			'Random',
+			'V2',
+			'Color',
+			'Resources',
+			'AudioSampler',
+			'GraphicsItem',
+			'GraphicsScene',
+			'Dot',
+			'Planet',
+			'SpaceShip',
+			'Universe',
+			'Level',
+			'MainMenu',
+			'main',
+			'xMath',
 		));
 		
 		$scriptPack->attachToView($this->view);
