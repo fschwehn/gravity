@@ -64,3 +64,5 @@ class Dot extends GraphicsItem
 		else
 			ctx.drawImage(Dot.image, @pos.x - Dot.radius, @pos.y - Dot.radius, Dot.radius * 2, Dot.radius * 2)
 		@
+
+@Dot = Dot

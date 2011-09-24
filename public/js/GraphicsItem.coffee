@@ -8,3 +8,5 @@ class GraphicsItem
 	render: (ctx) -> @
 	
 	setScene: (@scene) -> @
+
+@GraphicsItem = GraphicsItem

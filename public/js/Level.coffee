@@ -9,3 +9,5 @@ class Level
 		Level.current = @
 		$.getScript("/levels/#{ @id }.js", => callback())
 		@
+
+@Level = Level

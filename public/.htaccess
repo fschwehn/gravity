@@ -1,3 +1,5 @@
+#Coffee-Script
+addType application/x-javascript .coffee
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -s [OR]

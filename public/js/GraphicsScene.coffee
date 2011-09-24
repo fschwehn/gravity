@@ -54,3 +54,4 @@ class GraphicsScene
 		@items.splice i, 1 if i > -1 and i < @items.length
 		@
 		
+@GraphicsScene = GraphicsScene

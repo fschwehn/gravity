@@ -9,29 +9,28 @@ error = (e) ->
 		.fadeIn(600)
 
 try
-	if true
-		# setup canvas
-		$canvas = $('#viewport')
-		$canvas.bind 'select', -> false
+	# setup canvas
+	$canvas = $('#viewport')
+	$canvas.bind 'select', -> false
 
-		width = $canvas.width()
-		height = $canvas.height()
+	width = $canvas.width()
+	height = $canvas.height()
 
-		canvas = $canvas[0]
-		canvas.width = width
-		canvas.height = height
+	canvas = $canvas[0]
+	canvas.width = width
+	canvas.height = height
 
-		# init resources
-		resources = new Resources
-		
-		# setup universe
-		universe = new Universe(canvas.getContext('2d'), width, height, 100 / 3)
-		universe.ship.speed.set -30, -50
-		universe.addItem universe.ship
-		# @todo der darf immer nur einmal ausführen:
-		resources.addCompletedListener -> universe.start()
-		
-		# setup main menu
-		mainMenu = new MainMenu
+	# init resources
+	@resources = new Resources
+
+	# setup universe
+	@universe = new Universe(canvas.getContext('2d'), width, height, 100 / 3)
+	@universe.ship.speed.set -30, -50
+	@universe.addItem universe.ship
+	# @todo der darf immer nur einmal ausführen:
+	@resources.addCompletedListener -> universe.start()
+
+	# setup main menu
+	mainMenu = new MainMenu
 catch e
 	error e

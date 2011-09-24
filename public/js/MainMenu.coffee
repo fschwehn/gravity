@@ -26,3 +26,5 @@ class MainMenu
 		
 	show: ->
 		@dialog.dialog('open')
+
+@MainMenu = MainMenu

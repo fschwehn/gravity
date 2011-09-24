@@ -21,3 +21,5 @@ class Random
 		
 	floatRange: (min, max) ->
 		@uFloat(max - min) + min
+
+@Random = Random

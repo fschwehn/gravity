@@ -122,3 +122,5 @@ class Universe extends GraphicsScene
 		
 		@ctx.restore()
 		@
+
+@Universe = Universe

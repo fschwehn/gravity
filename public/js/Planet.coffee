@@ -48,3 +48,5 @@ class Planet extends GraphicsItem
 			delete canvas
 		ctx.drawImage(@image, @pos.x - @radius, @pos.y - @radius)
 		@
+
+@Planet = Planet

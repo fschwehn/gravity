@@ -96,3 +96,5 @@ class Resources
 		--@incomplete
 		if @incomplete == 0
 			callback() for callback in @completedListeners
+
+@Resources = Resources

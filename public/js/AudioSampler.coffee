@@ -20,3 +20,5 @@ class AudioSampler
 		c.src = url
 		c.play()
 		@nextChannel = (@nextChannel + 1) % @numVoices
+
+@AudioSampler = AudioSampler

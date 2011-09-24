@@ -110,4 +110,4 @@ class SpaceShip extends GraphicsItem
 	onMouseUp: (d) ->
 		@userAcceleration = v2()
 		
-		
+@SpaceShip = SpaceShip

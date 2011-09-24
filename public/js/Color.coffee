@@ -17,3 +17,5 @@ class Color
 		b = Math.floor(@b * 255.0)
 		a = new Number(@a).toFixed(3)
 		return "rgba(#{r},#{g},#{b},#{a})"
+
+@Color = Color

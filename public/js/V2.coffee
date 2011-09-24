@@ -24,4 +24,6 @@ class V2
 	toString: -> "[#{ @x }, #{ @y }]"
 
 # helper functions ---------------
-v2 = (x, y) -> new V2(x, y)
+@v2 = (x, y) -> new V2(x, y)
+
+@V2 = V2
