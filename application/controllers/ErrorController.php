@@ -30,9 +30,16 @@ class ErrorController extends Zend_Controller_Action
         }
         
         // Log exception, if logger available
-        if ($log = $this->getLog()) {
-            $log->log($this->view->message, $priority, $errors->exception);
-            $log->log('Request Parameters', $priority, $errors->request->getParams());
+		$log = $this->getLog();
+		
+        if ($log) {
+			$msg = sprintf("\n* Message: %s\n\n* Stack trace:\n%s\n\n* Request Prameters:\n%s\n", 
+				$errors->exception->getMessage(),
+				$errors->exception->getTraceAsString(),
+				var_export($errors->request->getParams(), true)
+			);
+			$msg = str_replace("\n", "\n\t", $msg);
+            $log->log($msg, $priority);
         }
         
         // conditionally display exceptions
@@ -52,7 +59,6 @@ class ErrorController extends Zend_Controller_Action
         $log = $bootstrap->getResource('Log');
         return $log;
     }
-
 
 }
 
